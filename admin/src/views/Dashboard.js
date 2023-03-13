@@ -1,7 +1,7 @@
 function Dashboard() {
   return (
     <div className="container">
-      <h1 className="text-6xl">this is Dashboard page</h1>
+      <h1 className="text-4xl">Dashboard</h1>
     </div>
   );
 }
