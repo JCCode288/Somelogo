@@ -13,11 +13,6 @@ function Login({ setPage }) {
     try {
       let response = await fetch("http://localhost:3001/users");
 
-      // toast.promise(response, {
-      //   pending: "Loading data",
-      //   error: "Failed to load data",
-      // });
-
       if (response.ok) {
         let data = await response.json();
         let user = data.find((el) => {
@@ -27,6 +22,11 @@ function Login({ setPage }) {
         });
 
         if (user) {
+          toast("logged in!", {
+            pauseOnFocusLoss: false,
+            pauseOnHover: false,
+            autoClose: 500,
+          });
           localStorage.logged = "true";
           setPage("dashboard");
         } else {

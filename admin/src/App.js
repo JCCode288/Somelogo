@@ -13,7 +13,6 @@ function App() {
     <div className="App">
       <NavBar setPage={setPage} />
       <div className="container">
-        <h1 className="text-7xl">something here</h1>
         {page === "login" ? <Login page={page} setPage={setPage} /> : ""}
         {page === "register" ? <Register /> : ""}
         {page === "dashboard" ? <Dashboard /> : ""}
