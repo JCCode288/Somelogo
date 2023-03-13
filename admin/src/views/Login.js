@@ -27,6 +27,7 @@ function Login({ setPage }) {
         });
 
         if (user) {
+          localStorage.logged = "true";
           setPage("dashboard");
         } else {
           toast.error("wrong email/password", {
