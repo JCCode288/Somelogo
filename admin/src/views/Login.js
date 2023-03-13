@@ -9,27 +9,29 @@ function Login({ setPage }) {
   async function loginSubmit(e) {
     e.preventDefault();
     try {
-      let response = await fetch("http://localhost:3000/users");
+      let response = await fetch("http://localhost:3001/users");
+      if (response.ok) {
+      }
       let data = await response.json();
-      console.log(data);
+      let user = data.find((el) => {
+        return (
+          el.email === loginForm.email && el.password === loginForm.password
+        );
+      });
+
+      if (user) {
+        setPage("dashboard");
+      }
     } catch (err) {
       console.log(err);
     }
   }
 
-  function emailHandler(e) {
-    const filledLogin = {
-      email: e.target.value,
-      password: loginForm.password,
-    };
-    setloginForm(filledLogin);
-  }
+  function inputHandler(e) {
+    const filledLogin = { ...loginForm };
+    const { value, name } = e.target;
+    filledLogin[name] = value;
 
-  function passwordHandler(e) {
-    const filledLogin = {
-      email: loginForm.email,
-      password: e.target.value,
-    };
     setloginForm(filledLogin);
   }
 
@@ -40,17 +42,15 @@ function Login({ setPage }) {
         <input
           type="text"
           name="email"
-          id="email"
           value={loginForm.email}
-          onChange={emailHandler}
+          onChange={inputHandler}
         />
         <label>Password</label>
         <input
           type="text"
           name="password"
-          id="password"
           value={loginForm.password}
-          onChange={passwordHandler}
+          onChange={inputHandler}
         />
         <button type="submit">Login</button>
       </form>
