@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Login({ setPage }) {
   const [loginForm, setloginForm] = useState({
@@ -10,17 +12,29 @@ function Login({ setPage }) {
     e.preventDefault();
     try {
       let response = await fetch("http://localhost:3001/users");
-      if (response.ok) {
-      }
-      let data = await response.json();
-      let user = data.find((el) => {
-        return (
-          el.email === loginForm.email && el.password === loginForm.password
-        );
-      });
 
-      if (user) {
-        setPage("dashboard");
+      // toast.promise(response, {
+      //   pending: "Loading data",
+      //   error: "Failed to load data",
+      // });
+
+      if (response.ok) {
+        let data = await response.json();
+        let user = data.find((el) => {
+          return (
+            el.email === loginForm.email && el.password === loginForm.password
+          );
+        });
+
+        if (user) {
+          setPage("dashboard");
+        } else {
+          toast.error("wrong email/password", {
+            pauseOnFocusLoss: false,
+            pauseOnHover: false,
+            autoClose: 500,
+          });
+        }
       }
     } catch (err) {
       console.log(err);
@@ -37,6 +51,7 @@ function Login({ setPage }) {
 
   return (
     <div className="container">
+      <ToastContainer />
       <form onSubmit={loginSubmit}>
         <label>Email</label>
         <input
