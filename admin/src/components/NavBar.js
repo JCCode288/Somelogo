@@ -4,7 +4,6 @@ import "../assets/navbar.css";
 function NavBar({ setPage }) {
   let [logged, setLogged] = useState(localStorage.logged);
 
-  console.log(logged);
   return (
     <nav className="flex border-2 border-b-black py-1 justify-between">
       <ul className="flex">
