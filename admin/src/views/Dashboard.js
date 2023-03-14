@@ -22,7 +22,7 @@ function Dashboard() {
   //     );
   // }, []);
 
-  const [loading, data] = useFetch("products");
+  const [loading, data] = useFetch("/products");
   const products = data;
 
   return (

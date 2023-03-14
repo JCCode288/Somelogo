@@ -13,7 +13,7 @@ export default function useFetch(endpoint, method, headers) {
   }
 
   useEffect(() => {
-    fetch(`${BASE_URL}/${endpoint}`, opt)
+    fetch(`${BASE_URL}${endpoint}`, opt)
       .then((result) => {
         if (result.ok) {
           return result.json();

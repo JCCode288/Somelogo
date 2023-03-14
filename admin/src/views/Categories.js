@@ -3,7 +3,7 @@ import useFetch from "../hooks/useFetch";
 import Spinner from "../components/Spinner";
 
 function Categories() {
-  const [loading, categories] = useFetch("categories");
+  const [loading, categories] = useFetch("/categories");
 
   return (
     <div className="container">
