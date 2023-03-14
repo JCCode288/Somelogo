@@ -52,24 +52,41 @@ function Login({ setPage }) {
 
   return (
     <div className="container">
-      <ToastContainer />
-      <form onSubmit={loginSubmit}>
-        <label>Email</label>
-        <input
-          type="text"
-          name="email"
-          value={loginForm.email}
-          onChange={inputHandler}
-        />
-        <label>Password</label>
-        <input
-          type="text"
-          name="password"
-          value={loginForm.password}
-          onChange={inputHandler}
-        />
-        <button type="submit">Login</button>
-      </form>
+      <div className="container m-8 flex justify-center ">
+        <ToastContainer />
+        <form
+          onSubmit={loginSubmit}
+          className="p-8 border-2 shadow-sm border-black w-1/3"
+        >
+          <h1 className="text-3xl my-4">Login</h1>
+          <label className="">Email</label>
+          <div className="container my-2 flex w-full">
+            <input
+              className=" border-[1px] flex w-full p-2 border-red-500 border-opacity-50 hover:border-opacity-100 focus:border-opacity-100 focus:border-red-500"
+              type="text"
+              name="email"
+              value={loginForm.email}
+              onChange={inputHandler}
+            />
+          </div>
+          <label className="">Password</label>
+          <div className="container my-2 flex w-full ">
+            <input
+              className=" border-[1px] flex w-full p-2 border-red-500 border-opacity-50 hover:border-opacity-100 focus:border-opacity-100 focus:border-red-500"
+              type="password"
+              name="password"
+              value={loginForm.password}
+              onChange={inputHandler}
+            />
+          </div>
+          <button
+            type="submit"
+            className="my-4 py-2 px-4 rounded border-2 hover:bg-red-600 ease-linear duration-100 hover:text-white"
+          >
+            Login
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
