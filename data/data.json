@@ -233,14 +233,13 @@
       "authorId": 9
     },
     {
-      "name": "testing product",
-      "description": "product for testing only",
-      "price": "2500000",
-      "mainImg": "test.product.co.id",
-      "categoryId": "",
-      "authorId": "15",
-      "slug": "testing-product",
-      "category": "2",
+      "name": "now it is edited",
+      "description": "some files",
+      "price": "12312312312",
+      "mainImg": "some url",
+      "categoryId": "5",
+      "authorId": "14",
+      "slug": "now-it is edited",
       "id": 6
     }
   ],

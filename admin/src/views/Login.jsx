@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-function Login({ setPage }) {
+function Login() {
   const [loginForm, setloginForm] = useState({
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   async function loginSubmit(e) {
     e.preventDefault();
@@ -23,13 +25,13 @@ function Login({ setPage }) {
         });
 
         if (user) {
+          localStorage.access_token = JSON.stringify("true");
+          navigate("/");
           toast("logged in!", {
             pauseOnFocusLoss: false,
             pauseOnHover: false,
             autoClose: 500,
           });
-          localStorage.logged = "true";
-          setPage("dashboard");
         } else {
           toast.error("wrong email/password", {
             pauseOnFocusLoss: false,
