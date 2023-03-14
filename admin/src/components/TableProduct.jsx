@@ -1,5 +1,29 @@
+import { toast } from "react-toastify";
+
 function TableProducts({ items }) {
   const products = [...items];
+
+  function deleteProduct(id) {
+    const BASE_URL = "http://localhost:3001/products/";
+    fetch(`${BASE_URL}${id}`, {
+      method: "delete",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("failed to delete");
+        }
+      })
+      .then((_) => toast.success("Products has been deleted"))
+      .catch((err) => {
+        toast.error(err.message);
+      });
+  }
+
   return (
     <table className="table-auto hover:table-fixed focus:table-fixed">
       <thead className="p-2">
@@ -36,7 +60,7 @@ function TableProducts({ items }) {
                   <img
                     src={el.mainImg}
                     alt="el.name"
-                    className="w-1/2 justify-center hover:scale-150 ease-linear duration-150 rounded-sm hover:border-4 hover:border-red-500 hover:z-10"
+                    className="w-1/2 justify-center rounded-sm"
                   />
                 </div>
               </td>
@@ -47,7 +71,10 @@ function TableProducts({ items }) {
                 {el.authorId}
               </td>
               <td className="p-2 border-b-[1px] border-red-500 border-opacity-50 text-center">
-                <button className="flex h-fit w-fit p-2 border-[1px] rounded hover:bg-red-600 hover:text-white duration-150 ease-in mb-2">
+                <button
+                  className="flex h-fit w-fit p-2 border-[1px] rounded hover:bg-red-600 hover:text-white duration-150 ease-in mb-2"
+                  onClick={() => deleteProduct(el.id)}
+                >
                   Delete
                 </button>
                 <button className="flex h-fit w-fit p-2 border-[1px] rounded hover:bg-red-600 hover:text-white duration-150 ease-in">
