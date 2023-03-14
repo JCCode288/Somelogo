@@ -3,8 +3,7 @@ import TableProduct from "../components/TableProduct";
 import useFetch from "../hooks/useFetch";
 
 function Dashboard() {
-  const [loading, data] = useFetch("/products");
-  const products = data;
+  const [loading, products] = useFetch("/products");
 
   return (
     <div className="container p-8 align-middle">

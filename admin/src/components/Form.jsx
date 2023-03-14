@@ -61,7 +61,7 @@ export default function Form({
       />
       <select
         className="duration-75 p-2 bg-white cursor-pointer"
-        name="category"
+        name="categoryId"
         onChange={inputHandler}
         value={newProduct.categoryId}
       >

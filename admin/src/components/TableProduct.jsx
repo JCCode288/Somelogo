@@ -1,7 +1,23 @@
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 function TableProducts({ items }) {
-  const products = [...items];
+  let [products, setProducts] = useState([...items]);
+  let [deleted, setDeleted] = useState(false);
+
+  useEffect(() => {
+    fetch("http://localhost:3001/products/")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("failed to fetch");
+        }
+        return response.json();
+      })
+      .then((newProducts) => {
+        setProducts([...newProducts]);
+        setDeleted(false);
+      });
+  }, [deleted]);
 
   function deleteProduct(id) {
     const BASE_URL = "http://localhost:3001/products/";
@@ -18,7 +34,10 @@ function TableProducts({ items }) {
           throw new Error("failed to delete");
         }
       })
-      .then((_) => toast.success("Products has been deleted"))
+      .then((_) => {
+        toast.success("Products has been deleted");
+        setDeleted(true);
+      })
       .catch((err) => {
         toast.error(err.message);
       });
