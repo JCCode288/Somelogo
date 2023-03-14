@@ -4,6 +4,7 @@ import Categories from "./views/Categories";
 import Products from "./views/Dashboard";
 import NavBar from "./components/NavBar";
 import { useState } from "react";
+import NewProduct from "./views/NewProduct";
 
 function App() {
   const [page, setPage] = useState("login");
@@ -16,6 +17,7 @@ function App() {
         {page === "register" ? <Register /> : ""}
         {page === "categories" ? <Categories /> : ""}
         {page === "products" ? <Products /> : ""}
+        {page === "new-product" ? <NewProduct /> : ""}
       </div>
     </div>
   );
