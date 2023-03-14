@@ -10,7 +10,7 @@ export default function Carousel() {
     array.push(i + 1);
   }
   return (
-    <div className="container flex justify-center h-[60vh]">
+    <div className="container flex justify-center z-10 shadow-sm">
       <Swiper
         slidesPerView={3}
         modules={[Navigation, Pagination]}
@@ -22,7 +22,7 @@ export default function Carousel() {
             <SwiperSlide className="">
               <img
                 src="https://image.uniqlo.com/UQ/ST3/id/imagesgoods/450524/item/idgoods_67_450524.jpg?width=750"
-                alt=""
+                alt="..."
               />
             </SwiperSlide>
           );

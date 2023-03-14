@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Layout, ProductSection } from "../components";
-import { Landing } from "../views";
+import { Category, Landing } from "../views";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +16,10 @@ const router = createBrowserRouter([
             element: <ProductSection />,
           },
         ],
+      },
+      {
+        path: "categories",
+        element: <Category />,
       },
     ],
   },
