@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import Form from "../components/Form";
 
@@ -13,6 +14,8 @@ export default function NewProduct() {
     slug: "",
   });
 
+  const navigate = useNavigate();
+
   function submitNewProduct(e) {
     e.preventDefault();
     fetch("http://localhost:3001/products", {
@@ -24,14 +27,15 @@ export default function NewProduct() {
     })
       .then((response) => {
         if (response.ok) {
-          toast.success("Added a New Product");
+          toast.success("Added a New Product", { autoClose: 500 });
         } else {
           throw new Error("failed to add new product");
         }
       })
       .catch((err) => {
         toast.error(err.message);
-      });
+      })
+      .finally((_) => navigate("/"));
   }
 
   return (

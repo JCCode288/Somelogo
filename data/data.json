@@ -231,17 +231,6 @@
       "mainImg": "https://image.uniqlo.com/UQ/ST3/id/imagesgoods/450524/item/idgoods_67_450524.jpg?width=750",
       "categoryId": 10,
       "authorId": 9
-    },
-    {
-      "name": "testing product",
-      "description": "product for testing only",
-      "price": "2500000",
-      "mainImg": "test.product.co.id",
-      "categoryId": "",
-      "authorId": "15",
-      "slug": "testing-product",
-      "category": "2",
-      "id": 6
     }
   ],
   "categories": [
