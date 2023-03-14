@@ -63,27 +63,29 @@ export default function Form({
         className="duration-75 p-2 bg-white cursor-pointer"
         name="categoryId"
         onChange={inputHandler}
-        value={newProduct.categoryId}
+        value={newProduct.categoryId ? newProduct.categoryId : "default"}
       >
-        <option disabled selected>
+        <option disabled value={"default"}>
           -- Pick your Category --
         </option>
         {categories.map((el) => (
-          <option value={el.id}>{el.name}</option>
+          <option key={el.id} value={el.id}>
+            {el.name}
+          </option>
         ))}
       </select>
       <select
         className="p-2 bg-white cursor-pointer"
         name="authorId"
         onChange={inputHandler}
-        value={newProduct.authorId}
+        value={newProduct.authorId ? newProduct.authorId : "default"}
       >
-        <option disabled selected>
+        <option disabled value={"default"}>
           -- Pick your Author --
         </option>
 
         {authors.map((el) => (
-          <option value={el.id}>
+          <option key={el.id} value={el.id}>
             {el.username} / {el.email}
           </option>
         ))}
@@ -94,7 +96,7 @@ export default function Form({
           className="p-2 border-[1px] w-fit shadow-sm hover:shadow-lg 
           hover:border-red-500 active:shadow-xl ease-linear transition delay-75 duration-75"
         >
-          Add New Product
+          {pageLegend}
         </button>
       </div>
     </form>
