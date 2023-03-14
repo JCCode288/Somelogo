@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Link } from "react-router-dom";
 
 function Login({ setPage }) {
   const [loginForm, setloginForm] = useState({
@@ -85,6 +86,9 @@ function Login({ setPage }) {
           >
             Login
           </button>
+          <Link to="/auth/register" className="font-semibold">
+            <p>doesn't have an account? register here!</p>
+          </Link>
         </form>
       </div>
     </div>
