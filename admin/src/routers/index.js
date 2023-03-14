@@ -6,6 +6,7 @@ import NewProduct from "../views/NewProduct.jsx";
 import Dashboard from "../views/Dashboard.jsx";
 import Layout from "../components/Layout.jsx";
 import Auth from "../components/Auth.jsx";
+import EditProduct from "../views/EditProduct.jsx";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "new-product",
         element: <NewProduct />,
+      },
+      {
+        path: "edit-product/:id",
+        element: <EditProduct />,
       },
     ],
   },

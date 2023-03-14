@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 function TableProducts({ items }) {
   let [products, setProducts] = useState([...items]);
   let [deleted, setDeleted] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("http://localhost:3001/products/")
@@ -65,7 +67,10 @@ function TableProducts({ items }) {
               <td className="p-2 border-b-[1px] border-red-500 border-opacity-50">
                 {++index}
               </td>
-              <td className="p-2 border-b-[1px] border-red-500 border-opacity-50 text-center">
+              <td
+                onClick={() => navigate("/edit-product/" + el.id)}
+                className=" cursor-pointer p-2 border-b-[1px] border-red-500 border-opacity-50 text-center hover:font-semibold"
+              >
                 {el.name}
               </td>
               <td className="p-2 border-b-[1px] border-red-500 border-opacity-50 text-justify">
@@ -95,9 +100,6 @@ function TableProducts({ items }) {
                   onClick={() => deleteProduct(el.id)}
                 >
                   Delete
-                </button>
-                <button className="flex h-fit w-fit p-2 border-[1px] rounded hover:bg-red-600 hover:text-white duration-150 ease-in">
-                  Edit
                 </button>
               </td>
             </tr>
