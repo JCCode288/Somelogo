@@ -37,17 +37,16 @@ function NavBar({ setPage }) {
         {logged ? (
           <button
             className="cursor-pointer mx-4 my-2 px-2 py-1 hover:bg-red-600 ease-in-out duration-150 text-lg hover:font-bold hover:text-white rounded hover:underline underline-offset-2 border-red-500 border-2"
-            onClick={localStorage.clear()}
+            onClick={() => localStorage.clear()}
           >
             logout
           </button>
         ) : (
-          <button
-            className="cursor-pointer mx-4 my-2 px-2 py-1 hover:bg-red-600 ease-in-out duration-150 text-lg hover:font-bold hover:text-white rounded hover:underline underline-offset-2 border-red-500 border-2"
-            onClick={() => setPage("login")}
-          >
-            login
-          </button>
+          <Link to="/auth">
+            <button className="cursor-pointer mx-4 my-2 px-2 py-1 hover:bg-red-600 ease-in-out duration-150 text-lg hover:font-bold hover:text-white rounded hover:underline underline-offset-2 border-red-500 border-2">
+              login
+            </button>
+          </Link>
         )}
       </div>
     </nav>

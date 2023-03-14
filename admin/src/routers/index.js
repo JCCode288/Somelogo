@@ -1,10 +1,13 @@
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Outlet } from "react-router-dom";
 import Login from "../views/Login.jsx";
 import Register from "../views/Register.jsx";
 import Categories from "../views/Categories.jsx";
 import NewProduct from "../views/NewProduct.jsx";
 import Dashboard from "../views/Dashboard.jsx";
 import Layout from "../components/Layout.jsx";
+import Auth from "../components/Auth.jsx";
+
+// Don't forget to add NavGuard to your router m8
 
 const router = createBrowserRouter([
   {
@@ -27,14 +30,10 @@ const router = createBrowserRouter([
   },
   {
     path: "/auth",
-    element: (
-      <div className="container">
-        <Outlet />
-      </div>
-    ),
+    element: <Auth />,
     children: [
       {
-        path: "login",
+        path: "",
         element: <Login />,
       },
       {
