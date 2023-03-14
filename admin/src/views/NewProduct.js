@@ -39,8 +39,9 @@ export default function NewProduct() {
       <ToastContainer />
       <Form
         newProduct={newProduct}
-        submitNewProduct={submitNewProduct}
-        setNewProduct={setNewProduct}
+        submitMethods={submitNewProduct}
+        setProduct={setNewProduct}
+        pageLegend="Add New Product"
       />
     </div>
   );
