@@ -231,16 +231,6 @@
       "mainImg": "https://image.uniqlo.com/UQ/ST3/id/imagesgoods/450524/item/idgoods_67_450524.jpg?width=750",
       "categoryId": 10,
       "authorId": 9
-    },
-    {
-      "name": "now it is edited",
-      "description": "some files",
-      "price": "12312312312",
-      "mainImg": "some url",
-      "categoryId": "5",
-      "authorId": "14",
-      "slug": "now-it is edited",
-      "id": 6
     }
   ],
   "categories": [
