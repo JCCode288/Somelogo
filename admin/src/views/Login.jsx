@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { fetchUsers } from "../store/actions/actionCreator";
 
 function Login() {
   const [loginForm, setloginForm] = useState({
@@ -9,39 +12,34 @@ function Login() {
     password: "",
   });
 
+  const { users } = useSelector((state) => state);
+
+  const usersArr = users.users;
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   async function loginSubmit(e) {
     e.preventDefault();
-    try {
-      let response = await fetch("http://localhost:3001/users");
+    dispatch(fetchUsers());
+    let user = usersArr.find((el) => {
+      return el.email === loginForm.email && el.password === loginForm.password;
+    });
 
-      if (response.ok) {
-        let data = await response.json();
-        let user = data.find((el) => {
-          return (
-            el.email === loginForm.email && el.password === loginForm.password
-          );
-        });
-
-        if (user) {
-          localStorage.access_token = JSON.stringify("true");
-          navigate("/");
-          toast("logged in!", {
-            pauseOnFocusLoss: false,
-            pauseOnHover: false,
-            autoClose: 500,
-          });
-        } else {
-          toast.error("wrong email/password", {
-            pauseOnFocusLoss: false,
-            pauseOnHover: false,
-            autoClose: 500,
-          });
-        }
-      }
-    } catch (err) {
-      console.log(err);
+    if (user) {
+      localStorage.access_token = JSON.stringify("true");
+      navigate("/");
+      toast("logged in!", {
+        pauseOnFocusLoss: false,
+        pauseOnHover: false,
+        autoClose: 500,
+      });
+    } else {
+      toast.error("wrong email/password", {
+        pauseOnFocusLoss: false,
+        pauseOnHover: false,
+        autoClose: 500,
+      });
     }
   }
 

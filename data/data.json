@@ -179,6 +179,15 @@
       "role": "Staff",
       "phoneNumber": "+62 (688) 742-2490",
       "address": "69 Huxley Avenue"
+    },
+    {
+      "username": "jambuPohon",
+      "email": "jambu@pohon.com",
+      "password": "jambu",
+      "role": "Admin",
+      "phoneNumber": "999966669999",
+      "address": "jl kebon",
+      "id": 21
     }
   ],
   "products": [
@@ -231,6 +240,16 @@
       "mainImg": "https://image.uniqlo.com/UQ/ST3/id/imagesgoods/450524/item/idgoods_67_450524.jpg?width=750",
       "categoryId": 10,
       "authorId": 9
+    },
+    {
+      "name": "please works",
+      "description": "can you do works?",
+      "price": "123123123",
+      "mainImg": "please workinggg",
+      "categoryId": "2",
+      "authorId": "2",
+      "slug": "please-works",
+      "id": 6
     }
   ],
   "categories": [

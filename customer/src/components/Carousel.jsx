@@ -3,12 +3,14 @@ import { Navigation, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { useSelector, useDispatch } from "react-redux";
 
-export default function Carousel() {
+export default function Carousel({ product }) {
   let array = [];
   for (let i = 0; i < 10; i++) {
     array.push(i + 1);
   }
+  useSelector();
   return (
     <div className="container flex justify-center z-10 shadow-sm">
       <Swiper
@@ -19,11 +21,8 @@ export default function Carousel() {
       >
         {array.map((el) => {
           return (
-            <SwiperSlide className="">
-              <img
-                src="https://image.uniqlo.com/UQ/ST3/id/imagesgoods/450524/item/idgoods_67_450524.jpg?width=750"
-                alt="..."
-              />
+            <SwiperSlide>
+              <img src={product?.mainImg} alt={product?.name} />
             </SwiperSlide>
           );
         })}

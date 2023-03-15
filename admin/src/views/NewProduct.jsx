@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import Form from "../components/Form";
+import { postProduct } from "../store/actions/actionCreator";
 
 export default function NewProduct() {
   const [newProduct, setNewProduct] = useState({
@@ -15,27 +17,17 @@ export default function NewProduct() {
   });
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   function submitNewProduct(e) {
     e.preventDefault();
-    fetch("http://localhost:3001/products", {
-      method: "post",
-      body: JSON.stringify(newProduct),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        if (response.ok) {
-          toast.success("Added a New Product", { autoClose: 500 });
-        } else {
-          throw new Error("failed to add new product");
-        }
+    dispatch(postProduct(newProduct))
+      .then(() => {
+        navigate("/");
       })
       .catch((err) => {
         toast.error(err.message);
-      })
-      .finally((_) => navigate("/"));
+      });
   }
 
   return (

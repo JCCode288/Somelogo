@@ -7,19 +7,7 @@ function TableProducts({ items }) {
   let [deleted, setDeleted] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetch("http://localhost:3001/products/")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("failed to fetch");
-        }
-        return response.json();
-      })
-      .then((newProducts) => {
-        setProducts([...newProducts]);
-        setDeleted(false);
-      });
-  }, [deleted]);
+  useEffect(() => {}, [deleted]);
 
   function deleteProduct(id) {
     const BASE_URL = "http://localhost:3001/products/";
