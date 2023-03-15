@@ -3,26 +3,27 @@ import { Navigation, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 export default function Carousel({ product }) {
-  let array = [];
-  for (let i = 0; i < 10; i++) {
-    array.push(i + 1);
-  }
-  useSelector();
+  const { products } = useSelector((state) => state.products);
+
   return (
-    <div className="container flex justify-center z-10 shadow-sm">
+    <div className="container flex items-center z-10 shadow-sm w-full">
       <Swiper
-        slidesPerView={3}
+        slidesPerView={2}
         modules={[Navigation, Pagination]}
         pagination={{ clickable: true }}
-        className="text-center h-full"
+        className=""
       >
-        {array.map((el) => {
+        {products.map((el) => {
           return (
             <SwiperSlide>
-              <img src={product?.mainImg} alt={product?.name} />
+              <Link to={`/detail/${el.id}`}>
+                <img src={el?.mainImg} alt={el?.name} />
+              </Link>
             </SwiperSlide>
           );
         })}

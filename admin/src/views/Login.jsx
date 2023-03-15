@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -12,30 +12,34 @@ function Login() {
     password: "",
   });
 
-  const { users } = useSelector((state) => state);
-
-  const usersArr = users.users;
+  const { users } = useSelector((state) => state.users);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   async function loginSubmit(e) {
     e.preventDefault();
-    dispatch(fetchUsers());
-    let user = usersArr.find((el) => {
-      return el.email === loginForm.email && el.password === loginForm.password;
-    });
-
-    if (user) {
-      localStorage.access_token = JSON.stringify("true");
-      navigate("/");
-      toast("logged in!", {
-        pauseOnFocusLoss: false,
-        pauseOnHover: false,
-        autoClose: 500,
+    try {
+      await dispatch(fetchUsers());
+      let user = users.find((el) => {
+        return (
+          el.email === loginForm.email && el.password === loginForm.password
+        );
       });
-    } else {
-      toast.error("wrong email/password", {
+      if (user) {
+        toast.success("logged in!", {
+          pauseOnFocusLoss: false,
+          pauseOnHover: false,
+          autoClose: 500,
+        });
+        localStorage.access_token = JSON.stringify("true");
+
+        navigate("/");
+      } else {
+        throw new Error("wrong email/password");
+      }
+    } catch (err) {
+      toast.error(err.message, {
         pauseOnFocusLoss: false,
         pauseOnHover: false,
         autoClose: 500,

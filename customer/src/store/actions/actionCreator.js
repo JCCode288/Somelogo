@@ -123,42 +123,6 @@ export function fetchProduct(id) {
   };
 }
 
-export function postProduct(payload) {
-  return async () => {
-    try {
-      const response = await fetch(`${BASE_URL}/products`, {
-        method: "post",
-        body: JSON.stringify(payload),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (!response.ok) {
-        throw new Error("failed to add new product");
-      }
-    } catch (err) {
-      throw err.text();
-    }
-  };
-}
-
-export function putProduct(id, payload) {
-  return async () => {
-    try {
-      const res = await fetch(`${BASE_URL}/products/${id}`, {
-        method: "put",
-        body: JSON.stringify(payload),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (!res.ok) throw new Error("failed to update product");
-    } catch (err) {
-      throw err.text();
-    }
-  };
-}
-
 export function fetchCategories() {
   return async (dispatch) => {
     try {

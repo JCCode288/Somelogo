@@ -242,14 +242,12 @@
       "authorId": 9
     },
     {
-      "name": "please works",
-      "description": "can you do works?",
+      "id": 6,
+      "name": "stupid mistakes always seems so big",
+      "slug": "stupid-mistakes always seems so big",
+      "description": "yea it is ",
       "price": "123123123",
-      "mainImg": "please workinggg",
-      "categoryId": "2",
-      "authorId": "2",
-      "slug": "please-works",
-      "id": 6
+      "mainImg": "will edit"
     }
   ],
   "categories": [
