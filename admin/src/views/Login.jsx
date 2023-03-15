@@ -22,32 +22,38 @@ function Login() {
   async function loginSubmit(e) {
     e.preventDefault();
     const loading = toast.loading("Logging in...");
-    dispatch(fetchUsers());
-    let user = usersArr.find((el) => {
-      return el.email === loginForm.email && el.password === loginForm.password;
-    });
-
-    if (user) {
-      toast.update(loading, {
-        render: "Logged in!",
-        type: "success",
-        isLoading: false,
-        pauseOnFocusLoss: false,
-        pauseOnHover: false,
-        autoClose: 500,
+    dispatch(fetchUsers())
+      .then(() => {
+        let user = usersArr.find((el) => {
+          return (
+            el.email === loginForm.email && el.password === loginForm.password
+          );
+        });
+        if (user) {
+          toast.update(loading, {
+            render: "Logged in!",
+            type: "success",
+            isLoading: false,
+            pauseOnFocusLoss: false,
+            pauseOnHover: false,
+            autoClose: 500,
+          });
+          localStorage.access_token = JSON.stringify("true");
+          navigate("/");
+        } else {
+          throw new Error("wrong email/password");
+        }
+      })
+      .catch((err) => {
+        toast.update(loading, {
+          render: err.message,
+          type: "error",
+          isLoading: false,
+          pauseOnFocusLoss: false,
+          pauseOnHover: false,
+          autoClose: 500,
+        });
       });
-      localStorage.access_token = JSON.stringify("true");
-      navigate("/");
-    } else {
-      toast.update(loading, {
-        render: "wrong email/password",
-        type: "error",
-        isLoading: false,
-        pauseOnFocusLoss: false,
-        pauseOnHover: false,
-        autoClose: 500,
-      });
-    }
   }
 
   function inputHandler(e) {
