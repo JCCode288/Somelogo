@@ -1,4 +1,4 @@
-import useFetch from "../hooks/useFetch";
+import { useSelector } from "react-redux";
 
 export default function Form({
   newProduct,
@@ -6,8 +6,8 @@ export default function Form({
   submitMethods,
   pageLegend,
 }) {
-  const [loading, categories] = useFetch("/categories");
-  const [load2, authors] = useFetch("/users");
+  const categories = useSelector((state) => state.categories.categories);
+  const authors = useSelector((state) => state.users.users);
 
   function inputHandler(e) {
     const { value, name } = e.target;

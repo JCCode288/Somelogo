@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { postUser } from "../store/actions/actionCreator";
 
 function Register() {
   const [registerForm, setRegisterForm] = useState({
@@ -13,6 +15,7 @@ function Register() {
   });
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   function inputHandler(e) {
     const inputForm = {
@@ -26,38 +29,25 @@ function Register() {
     setRegisterForm(inputForm);
   }
 
-  async function registerSubmit(e) {
+  async function registerSubmit() {
     try {
-      e.preventDefault();
-
-      console.log(registerForm);
-
-      let response = await fetch("http://localhost:3001/users", {
-        method: "post",
-        body: JSON.stringify(registerForm),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("wrong input");
-      }
-
-      let logged = await response.json();
+      const loading = toast.loading("Registering...");
+      await dispatch(postUser(registerForm));
 
       localStorage.access_token = "true";
-      toast.success("successfully registering!", { autoClose: 500 });
-
+      toast.update(loading, {
+        render: "Registered!",
+        type: "success",
+        isLoading: false,
+      });
       navigate("/");
-
-      toast.success("logged in!", { autoClose: 500 });
     } catch (err) {
       toast.error(err.message, {
         autoClose: 700,
       });
     }
   }
+
   return (
     <div className="container">
       <div className="container m-8 flex justify-center ">

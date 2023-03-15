@@ -1,14 +1,13 @@
+import { useSelector } from "react-redux";
 import Card from "./Card";
 
 export default function ProductSection() {
-  let test = [];
-  for (let i = 0; i < 10; i++) {
-    test.push({ id: i + 1, mainImg: "" });
-  }
+  const { products } = useSelector((state) => state.products);
+
   return (
     <div className="container grid grid-cols-4 gap-6 p-8">
-      {test.map((el) => {
-        return <Card />;
+      {products.map((el) => {
+        return <Card product={el} key={el.id} />;
       })}
     </div>
   );
