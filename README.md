@@ -56,19 +56,19 @@ Target:
 
 Target:
 
-- [ ] Lecture - Redux
-- [ ] State vs Global State
-- [ ] Bagaimana cara membuat Store
-- [ ] Bagaimana cara membuat Reducer
-- [ ] Bagaimana cara membuat Action
-- [ ] Membuat Action Creators
-- [ ] Membuat Action Types
-- [ ] Lecture - Redux-thunk (handle async)
-- [ ] Cara menggunakan combineReducers
+- [x] Lecture - Redux
+- [x] State vs Global State
+- [x] Bagaimana cara membuat Store
+- [x] Bagaimana cara membuat Reducer
+- [x] Bagaimana cara membuat Action
+- [x] Membuat Action Creators
+- [x] Membuat Action Types
+- [x] Lecture - Redux-thunk (handle async)
+- [x] Cara menggunakan combineReducers
 
 **Report:**
 
-...
+> Hari ini saya mempelajari pemakaian redux baik synchronous maupun asynchronous. Berkat konsep dasar yang dipahami pada vue pinia saya dapat menangkap pemahaman cara penggunaan redux. saya menyelesaikan pembuatan admin side dengan featurenya (beberapa fitur seperti index.js tiap folder belum) dan memulai pengerjaan customer side secara penuh
 
 ## W1D4
 
