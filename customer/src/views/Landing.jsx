@@ -1,13 +1,13 @@
+import { useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
-import { Carousel } from "../components";
+import { Carousel, Spinner } from "../components";
 
 export default function Landing() {
+  const { productsLoading } = useSelector((state) => state.products);
   return (
-    <div className="container">
-      <div className="container">
-        <Carousel />
-        <Outlet />
-      </div>
+    <div className="container flex flex-col items-center h-full w-full justify-center">
+      {productsLoading ? <Spinner /> : <Carousel />}
+      {productsLoading ? <Spinner /> : <Outlet />}
     </div>
   );
 }
