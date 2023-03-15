@@ -21,21 +21,28 @@ function Login() {
 
   async function loginSubmit(e) {
     e.preventDefault();
+    const loading = toast.loading("Logging in...");
     dispatch(fetchUsers());
     let user = usersArr.find((el) => {
       return el.email === loginForm.email && el.password === loginForm.password;
     });
 
     if (user) {
-      localStorage.access_token = JSON.stringify("true");
-      navigate("/");
-      toast("logged in!", {
+      toast.update(loading, {
+        render: "Logged in!",
+        type: "success",
+        isLoading: false,
         pauseOnFocusLoss: false,
         pauseOnHover: false,
         autoClose: 500,
       });
+      localStorage.access_token = JSON.stringify("true");
+      navigate("/");
     } else {
-      toast.error("wrong email/password", {
+      toast.update(loading, {
+        render: "wrong email/password",
+        type: "error",
+        isLoading: false,
         pauseOnFocusLoss: false,
         pauseOnHover: false,
         autoClose: 500,

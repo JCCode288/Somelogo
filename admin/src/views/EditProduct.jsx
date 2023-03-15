@@ -2,60 +2,52 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import Form from "../components/Form";
+import { useDispatch, useSelector } from "react-redux";
+import Spinner from "../components/Spinner";
+import {
+  fetchCategories,
+  fetchUsers,
+  fetchProduct,
+  putProduct,
+} from "../store/actions/actionCreator";
 
 export default function EditProduct() {
+  let { id } = useParams();
+  let { products } = useSelector((state) => state);
+  const loading = products.productLoading;
+
   const [product, setProduct] = useState({
-    name: "",
-    description: "",
-    price: "",
-    mainImg: "",
-    categoryId: "",
-    authorId: "",
-    slug: "",
+    ...products.product,
   });
 
-  let { id } = useParams();
-
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  function fetchProduct() {
-    const baseUrl = "http://localhost:3001/products/";
-    fetch(baseUrl + id)
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-      })
-      .then((item) => {
-        setProduct({ ...item });
-      })
+  useEffect(() => {
+    dispatch(fetchProduct(id))
+      .then(() => dispatch(fetchCategories()))
+      .then(() => dispatch(fetchUsers()))
       .catch((err) => {
         toast.error(err.message, { autoClose: 500 });
       });
-  }
-
-  useEffect(() => {
-    fetchProduct();
   }, []);
 
   function submitEditProduct(e) {
     e.preventDefault();
-    fetch("http://localhost:3001/products/" + id, {
-      method: "put",
-      body: JSON.stringify(product),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+    dispatch(putProduct(id, product))
       .then((response) => {
-        if (response.ok) {
-          toast.success("Added a New Product", { autoClose: 500 });
-        } else {
-          throw new Error("failed to add new product");
-        }
+        toast.success("Edited!", {
+          autoClose: 500,
+          pauseOnFocusLoss: false,
+          pauseOnHover: false,
+        });
       })
       .catch((err) => {
-        toast.error(err.message);
+        toast.error(err.message, {
+          autoClose: 500,
+          pauseOnFocusLoss: false,
+          pauseOnHover: false,
+        });
       })
       .finally((_) => navigate("/"));
   }
@@ -63,12 +55,16 @@ export default function EditProduct() {
   return (
     <div className="container m-8 justify-center flex">
       <ToastContainer />
-      <Form
-        newProduct={product}
-        submitMethods={submitEditProduct}
-        setProduct={setProduct}
-        pageLegend="Edit Product"
-      />
+      {loading ? (
+        <Spinner />
+      ) : (
+        <Form
+          newProduct={product}
+          submitMethods={submitEditProduct}
+          setProduct={setProduct}
+          pageLegend="Edit Product"
+        />
+      )}
     </div>
   );
 }

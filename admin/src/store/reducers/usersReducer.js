@@ -1,9 +1,10 @@
-import { USERS, USERS_LOADING } from "../actions/actionType";
+import { REGISTER_LOADING, USERS, USERS_LOADING } from "../actions/actionType";
 import {} from "../actions/actionType";
 
 const initialState = {
   users: [],
-  usersLoading: true,
+  usersLoading: false,
+  registerLoading: false,
 };
 
 export default function usersReducer(state = initialState, { type, payload }) {
@@ -17,6 +18,11 @@ export default function usersReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         usersLoading: payload,
+      };
+    case REGISTER_LOADING:
+      return {
+        ...state,
+        registerLoading: payload,
       };
     default:
       return state;
