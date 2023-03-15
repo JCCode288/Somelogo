@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -12,48 +12,39 @@ function Login() {
     password: "",
   });
 
-  const { users } = useSelector((state) => state);
-
-  const usersArr = users.users;
+  const { users } = useSelector((state) => state.users);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   async function loginSubmit(e) {
     e.preventDefault();
-    const loading = toast.loading("Logging in...");
-    dispatch(fetchUsers())
-      .then(() => {
-        let user = usersArr.find((el) => {
-          return (
-            el.email === loginForm.email && el.password === loginForm.password
-          );
-        });
-        if (user) {
-          toast.update(loading, {
-            render: "Logged in!",
-            type: "success",
-            isLoading: false,
-            pauseOnFocusLoss: false,
-            pauseOnHover: false,
-            autoClose: 500,
-          });
-          localStorage.access_token = JSON.stringify("true");
-          navigate("/");
-        } else {
-          throw new Error("wrong email/password");
-        }
-      })
-      .catch((err) => {
-        toast.update(loading, {
-          render: err.message,
-          type: "error",
-          isLoading: false,
+    try {
+      await dispatch(fetchUsers());
+      let user = users.find((el) => {
+        return (
+          el.email === loginForm.email && el.password === loginForm.password
+        );
+      });
+      if (user) {
+        toast.success("logged in!", {
           pauseOnFocusLoss: false,
           pauseOnHover: false,
           autoClose: 500,
         });
+        localStorage.access_token = JSON.stringify("true");
+
+        navigate("/");
+      } else {
+        throw new Error("wrong email/password");
+      }
+    } catch (err) {
+      toast.error(err.message, {
+        pauseOnFocusLoss: false,
+        pauseOnHover: false,
+        autoClose: 500,
       });
+    }
   }
 
   function inputHandler(e) {
