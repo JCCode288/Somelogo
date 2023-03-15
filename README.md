@@ -7,9 +7,9 @@
 
 Struktur Folder:
 
-- server (PORT: 3000)
-- client-user
-- client-admin
+- server (PORT: ????)
+- customer (PORT: 3000)
+- admin (PORT: 3000)
 
 ## W1D1
 
