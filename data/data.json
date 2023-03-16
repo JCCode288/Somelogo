@@ -247,7 +247,9 @@
       "slug": "stupid-mistakes always seems so big",
       "description": "yea it is ",
       "price": "123123123",
-      "mainImg": "will edit"
+      "mainImg": "will edit",
+      "categoryId": 10,
+      "authorId": 26
     }
   ],
   "categories": [

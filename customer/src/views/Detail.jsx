@@ -30,8 +30,12 @@ export default function Detail() {
             Back
           </button>
           <div className="container flex flex-row">
-            <div>
-              <img src={product.mainImg} alt={product.name} />
+            <div className="container p-4  md:max-w-[50vw]">
+              <img
+                src={product.mainImg}
+                alt={product.name}
+                className="rounded-md"
+              />
             </div>
             <div className="container flex flex-col justify-center p-6">
               <h4 className="font-semibold text-2xl text-center">
