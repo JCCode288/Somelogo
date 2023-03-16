@@ -6,9 +6,7 @@ import { Spinner } from "../components";
 
 export default function Category() {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchCategories()).catch((err) => console.log(err));
-  }, []);
+
   const { categories, categoriesLoading } = useSelector(
     (state) => state.categories
   );

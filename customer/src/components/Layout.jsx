@@ -2,12 +2,13 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "./Navbar";
-import { fetchProducts } from "../store/actions/actionCreator";
+import { fetchCategories, fetchProducts } from "../store/actions/actionCreator";
 
 export default function Layout() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchProducts());
+    dispatch(fetchCategories()).catch((err) => console.log(err));
   }, []);
 
   return (
