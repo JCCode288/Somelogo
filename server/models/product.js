@@ -19,18 +19,95 @@ module.exports = (sequelize, DataTypes) => {
   }
   Product.init(
     {
-      name: DataTypes.STRING,
-      slug: DataTypes.STRING,
-      description: DataTypes.TEXT,
-      price: DataTypes.INTEGER,
-      mainImg: DataTypes.TEXT,
-      categoryId: DataTypes.INTEGER,
-      authorId: DataTypes.INTEGER,
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "Name cannot be empty",
+          },
+          notEmpty: {
+            msg: "Name cannot be empty",
+          },
+        },
+      },
+      slug: {
+        type: DataTypes.STRING,
+      },
+      description: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "Description cannot be empty",
+          },
+          notEmpty: {
+            msg: "Description cannot be empty",
+          },
+        },
+      },
+      price: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "Price cannot be empty",
+          },
+          notEmpty: {
+            msg: "Price cannot be empty",
+          },
+          min: {
+            args: 20000,
+            msg: "Price can't be lower than Rp 20.000",
+          },
+        },
+      },
+      mainImg: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "Main Image cannot be empty",
+          },
+          notEmpty: {
+            msg: "Main Image cannot be empty",
+          },
+        },
+      },
+      categoryId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: "Category cannot be empty",
+          },
+          notNull: {
+            msg: "Category cannot be empty",
+          },
+        },
+      },
+      authorId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: "Author cannot be empty",
+          },
+          notNull: {
+            msg: "Author cannot be empty",
+          },
+        },
+      },
     },
     {
       sequelize,
       modelName: "Product",
     }
   );
+
+  Product.beforeCreate((product, opt) => {
+    product.slug = product.name.replace(" ", "-");
+  });
+
   return Product;
 };

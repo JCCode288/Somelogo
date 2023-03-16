@@ -11,7 +11,7 @@ module.exports = async (req, res, next) => {
 
     let { id, email } = Token.verify(access_token);
 
-    let user = User.findByPk(id, {
+    let user = await User.findByPk(id, {
       attributes: {
         exclude: ["password"],
       },

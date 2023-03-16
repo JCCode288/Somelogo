@@ -16,17 +16,20 @@ module.exports = {
      */
     const db = require("../../data/data.json");
     const users = db.users.map((el) => {
+      delete el.id;
       el.password = Hash.create(el.password);
       el.createdAt = new Date();
       el.updatedAt = new Date();
       return el;
     });
     const categories = db.categories.map((el) => {
+      delete el.id;
       el.createdAt = new Date();
       el.updatedAt = new Date();
       return el;
     });
     const products = db.products.map((el) => {
+      delete el.id;
       el.createdAt = new Date();
       el.updatedAt = new Date();
       return el;
