@@ -11,4 +11,4 @@ export const REGISTER_LOADING = "register/loading";
 export const CATEGORIES = "categories/fetchSuccess";
 export const CATEGORIES_LOADING = "categories/loading";
 
-export const BASE_URL = "http://localhost:3001";
+export const BASE_URL = "http://localhost:3001/adm";

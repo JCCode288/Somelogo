@@ -5,7 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import FormCategory from "../components/FormCategory";
 import { postCategory } from "../store/actions/actionCreator";
 
-export default function NewProduct() {
+export default function NewCategory() {
   const [newCategory, setNewCategory] = useState({
     name: "",
   });
@@ -13,15 +13,26 @@ export default function NewProduct() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  function submitNewCategory(e) {
-    e.preventDefault();
-    dispatch(postCategory(newCategory))
-      .then(() => {
-        navigate("/");
-      })
-      .catch((err) => {
-        toast.error(err.message);
+  async function submitNewCategory(e) {
+    try {
+      e.preventDefault();
+
+      let message = await dispatch(postCategory(newCategory));
+
+      toast.success(message, {
+        autoClose: 500,
+        pauseOnFocusLoss: false,
+        pauseOnHover: false,
       });
+
+      navigate("/categories");
+    } catch (err) {
+      toast.error(err.message, {
+        autoClose: 500,
+        pauseOnFocusLoss: false,
+        pauseOnHover: false,
+      });
+    }
   }
 
   return (

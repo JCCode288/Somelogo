@@ -123,7 +123,11 @@ export function fetchProduct(id) {
   return async (dispatch) => {
     try {
       dispatch(productLoading(true));
-      let res = await fetch(`${BASE_URL}/products/${id}`);
+      let res = await fetch(`${BASE_URL}/products/${id}`, {
+        headers: {
+          access_token: localStorage.access_token,
+        },
+      });
       if (!res.ok) {
         throw await res.text();
       }
@@ -146,11 +150,14 @@ export function postProduct(payload) {
         body: JSON.stringify(payload),
         headers: {
           "Content-Type": "application/json",
+          access_token: localStorage.access_token,
         },
       });
       if (!response.ok) {
-        throw response.text();
+        throw await response.text();
       }
+      let data = await response.json();
+      return `${data.name} has been created`;
     } catch (err) {
       throw JSON.parse(err);
     }
@@ -165,13 +172,42 @@ export function putProduct(id, payload) {
         body: JSON.stringify(payload),
         headers: {
           "Content-Type": "application/json",
+          access_token: localStorage.access_token,
         },
       });
 
       if (!res.ok) {
         throw res.text();
       }
+      let data = await res.json();
+      return `product ${data.name} has been edited`;
     } catch (err) {
+      throw JSON.parse(err);
+    }
+  };
+}
+
+export function deleteProduct(id) {
+  return async function (dispatch) {
+    try {
+      let res = await fetch(`${BASE_URL}/products/${id}`, {
+        method: "delete",
+        headers: {
+          "Content-Type": "application/json",
+          access_token: localStorage.access_token,
+        },
+      });
+
+      if (!res.ok) {
+        throw await res.text();
+      }
+
+      let data = await res.json();
+
+      await dispatch(fetchProducts());
+      return data.message;
+    } catch (err) {
+      console.log(err);
       throw JSON.parse(err);
     }
   };
@@ -242,10 +278,10 @@ export function postCategory(payload) {
         throw await res.text();
       }
 
-      let message = await res.json();
+      let data = await res.json();
 
       await dispatch(fetchCategories());
-      return message;
+      return `category of ${data.name} is created`;
     } catch (err) {
       throw JSON.parse(err);
     }

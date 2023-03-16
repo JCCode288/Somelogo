@@ -15,7 +15,7 @@ function Categories() {
 
   async function fetching() {
     try {
-      dispatch(fetchCategories());
+      await dispatch(fetchCategories());
     } catch (err) {
       toast.error(err.message, {
         autoClose: 750,

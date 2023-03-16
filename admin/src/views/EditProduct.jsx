@@ -22,32 +22,40 @@ export default function EditProduct() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchProduct(id))
-      .then(() => dispatch(fetchCategories()))
-      .catch((err) => {
-        toast.error(err.message, { autoClose: 500 });
+  async function handleEditPage() {
+    try {
+      await dispatch(fetchProduct(id));
+      await dispatch(fetchCategories());
+    } catch (err) {
+      toast.error(err.message, {
+        autoClose: 500,
+        pauseOnFocusLoss: false,
+        pauseOnHover: false,
       });
+    }
+  }
+
+  useEffect(() => {
+    handleEditPage();
   }, []);
 
-  function submitEditProduct(e) {
-    e.preventDefault();
-    dispatch(putProduct(id, product))
-      .then(() => {
-        toast.success("Edited!", {
-          autoClose: 500,
-          pauseOnFocusLoss: false,
-          pauseOnHover: false,
-        });
-      })
-      .catch((err) => {
-        toast.error(err.message, {
-          autoClose: 500,
-          pauseOnFocusLoss: false,
-          pauseOnHover: false,
-        });
-      })
-      .finally((_) => navigate("/"));
+  async function submitEditProduct(e) {
+    try {
+      e.preventDefault();
+      let message = await dispatch(putProduct(id, product));
+      toast.success(message, {
+        autoClose: 700,
+        pauseOnFocusLoss: false,
+        pauseOnHover: false,
+      });
+      navigate("/");
+    } catch (err) {
+      toast.error(err.message, {
+        autoClose: 700,
+        pauseOnFocusLoss: false,
+        pauseOnHover: false,
+      });
+    }
   }
 
   return (
