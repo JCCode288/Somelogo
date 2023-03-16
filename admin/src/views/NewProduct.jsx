@@ -22,7 +22,12 @@ export default function NewProduct() {
   function submitNewProduct(e) {
     e.preventDefault();
     dispatch(postProduct(newProduct))
-      .then(() => {
+      .then((message) => {
+        toast.success(message, {
+          autoClose: 700,
+          pauseOnFocusLoss: false,
+          pauseOnHover: false,
+        });
         navigate("/");
       })
       .catch((err) => {

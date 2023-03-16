@@ -12,7 +12,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("./"));
-app.use(router);
+app.use("/adm", router);
+app.use("/", router);
 app.use(errorHandler);
 
 app.listen(PORT, () => {

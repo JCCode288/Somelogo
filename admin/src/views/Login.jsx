@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import { fetchUsers } from "../store/actions/actionCreator";
+import { login } from "../store/actions/actionCreator";
 
 function Login() {
   const [loginForm, setloginForm] = useState({
@@ -12,31 +11,24 @@ function Login() {
     password: "",
   });
 
-  const { users } = useSelector((state) => state.users);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   async function loginSubmit(e) {
     e.preventDefault();
     try {
-      await dispatch(fetchUsers());
-      let user = users.find((el) => {
-        return (
-          el.email === loginForm.email && el.password === loginForm.password
-        );
-      });
+      await dispatch(login(loginForm));
+
+      let user = localStorage.username;
+
       if (user) {
         toast.success("logged in!", {
           pauseOnFocusLoss: false,
           pauseOnHover: false,
           autoClose: 500,
         });
-        localStorage.access_token = JSON.stringify("true");
 
         navigate("/");
-      } else {
-        throw new Error("wrong email/password");
       }
     } catch (err) {
       toast.error(err.message, {
@@ -90,9 +82,6 @@ function Login() {
           >
             Login
           </button>
-          <Link to="/auth/register" className="font-semibold">
-            <p>doesn't have an account? register here!</p>
-          </Link>
         </form>
       </div>
     </div>
