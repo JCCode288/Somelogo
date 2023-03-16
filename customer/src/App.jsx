@@ -4,7 +4,9 @@ import router from "./routers";
 function App() {
   return (
     <div className="App">
-      <RouterProvider router={router} />
+      <div className="container flex m-0 overflow-hidden">
+        <RouterProvider router={router} />
+      </div>
     </div>
   );
 }

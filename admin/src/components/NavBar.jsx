@@ -37,6 +37,16 @@ function NavBar() {
             Add Product
           </li>
         </Link>
+        <Link to="new-category">
+          <li className="cursor-pointer mx-4 my-2 px-2 py-1 hover:bg-red-600 ease-in-out duration-150 text-lg hover:font-bold hover:text-white rounded hover:underline underline-offset-2 border-red-500 border-2">
+            Add Category
+          </li>
+        </Link>
+        <Link to="register">
+          <li className="cursor-pointer mx-4 my-2 px-2 py-1 hover:bg-red-600 ease-in-out duration-150 text-lg hover:font-bold hover:text-white rounded hover:underline underline-offset-2 border-red-500 border-2">
+            Register New Admin
+          </li>
+        </Link>
       </ul>
       <div>
         {current ? (

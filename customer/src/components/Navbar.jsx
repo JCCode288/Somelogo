@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 export default function Navbar() {
   return (
-    <nav className="flex justify-between h-16 p-2 border-b-2 border-red-500 mb-4">
+    <nav className="flex justify-between py-4 p-4 border-b-2 border-red-500 mb-4 sticky top-0 bg-white bg-opacity-90 z-20 w-screen">
       <div className="container flex">
         <NavLink
           className={({ isActive }) => {

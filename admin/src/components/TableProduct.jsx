@@ -1,36 +1,26 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { deleteProduct } from "../store/actions/actionCreator";
 
 function TableProducts({ items }) {
   let [products, setProducts] = useState([...items]);
-  let [deleted, setDeleted] = useState(false);
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  useEffect(() => {}, [deleted]);
-
-  function deleteProduct(id) {
-    const BASE_URL = "http://localhost:3001/products/";
-    fetch(`${BASE_URL}${id}`, {
-      method: "delete",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error("failed to delete");
-        }
-      })
-      .then((_) => {
-        toast.success("Products has been deleted");
-        setDeleted(true);
-      })
-      .catch((err) => {
-        toast.error(err.message);
+  async function deleteHandler(id) {
+    try {
+      let message = await dispatch(deleteProduct(id));
+      toast.success(message, {
+        autoClose: 700,
+        pauseOnFocusLoss: false,
+        pauseOnHover: false,
       });
+    } catch (err) {
+      toast.error(err.message);
+    }
   }
 
   return (
@@ -85,7 +75,7 @@ function TableProducts({ items }) {
               <td className="p-2 border-b-[1px] border-red-500 border-opacity-50 text-center">
                 <button
                   className="flex h-fit w-fit p-2 border-[1px] rounded hover:bg-red-600 hover:text-white duration-150 ease-in mb-2"
-                  onClick={() => deleteProduct(el.id)}
+                  onClick={() => deleteHandler(el.id)}
                 >
                   Delete
                 </button>

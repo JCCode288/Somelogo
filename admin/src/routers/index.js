@@ -1,4 +1,4 @@
-import { createBrowserRouter, Outlet, redirect } from "react-router-dom";
+import { createBrowserRouter, redirect } from "react-router-dom";
 import Login from "../views/Login.jsx";
 import Register from "../views/Register.jsx";
 import Categories from "../views/Categories.jsx";
@@ -7,6 +7,7 @@ import Dashboard from "../views/Dashboard.jsx";
 import Layout from "../components/Layout.jsx";
 import Auth from "../components/Auth.jsx";
 import EditProduct from "../views/EditProduct.jsx";
+import NewCategory from "../views/NewCategory.jsx";
 
 const router = createBrowserRouter([
   {
@@ -33,8 +34,16 @@ const router = createBrowserRouter([
         element: <NewProduct />,
       },
       {
+        path: "new-category",
+        element: <NewCategory />,
+      },
+      {
         path: "edit-product/:id",
         element: <EditProduct />,
+      },
+      {
+        path: "register",
+        element: <Register />,
       },
     ],
   },
@@ -51,10 +60,6 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <Login />,
-      },
-      {
-        path: "register",
-        element: <Register />,
       },
     ],
   },
