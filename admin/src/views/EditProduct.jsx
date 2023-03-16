@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import Spinner from "../components/Spinner";
 import {
   fetchCategories,
-  fetchUsers,
   fetchProduct,
   putProduct,
 } from "../store/actions/actionCreator";
@@ -26,7 +25,6 @@ export default function EditProduct() {
   useEffect(() => {
     dispatch(fetchProduct(id))
       .then(() => dispatch(fetchCategories()))
-      .then(() => dispatch(fetchUsers()))
       .catch((err) => {
         toast.error(err.message, { autoClose: 500 });
       });
@@ -35,7 +33,7 @@ export default function EditProduct() {
   function submitEditProduct(e) {
     e.preventDefault();
     dispatch(putProduct(id, product))
-      .then((response) => {
+      .then(() => {
         toast.success("Edited!", {
           autoClose: 500,
           pauseOnFocusLoss: false,

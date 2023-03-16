@@ -7,6 +7,7 @@ import Dashboard from "../views/Dashboard.jsx";
 import Layout from "../components/Layout.jsx";
 import Auth from "../components/Auth.jsx";
 import EditProduct from "../views/EditProduct.jsx";
+import NewCategory from "../views/NewCategory.jsx";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "new-product",
         element: <NewProduct />,
+      },
+      {
+        path: "new-category",
+        element: <NewCategory />,
       },
       {
         path: "edit-product/:id",

@@ -7,7 +7,6 @@ export default function Form({
   pageLegend,
 }) {
   const categories = useSelector((state) => state.categories.categories);
-  const authors = useSelector((state) => state.users.users);
 
   function inputHandler(e) {
     const { value, name } = e.target;
@@ -71,22 +70,6 @@ export default function Form({
         {categories.map((el) => (
           <option key={el.id} value={el.id}>
             {el.name}
-          </option>
-        ))}
-      </select>
-      <select
-        className="p-2 bg-white cursor-pointer"
-        name="authorId"
-        onChange={inputHandler}
-        value={newProduct.authorId ? newProduct.authorId : "default"}
-      >
-        <option disabled value={"default"}>
-          -- Pick your Author --
-        </option>
-
-        {authors.map((el) => (
-          <option key={el.id} value={el.id}>
-            {el.username} / {el.email}
           </option>
         ))}
       </select>

@@ -4,6 +4,7 @@ import Spinner from "../components/Spinner";
 import { useEffect } from "react";
 import TableProduct from "../components/TableProduct";
 import { fetchProducts } from "../store/actions/actionCreator";
+import { Link } from "react-router-dom";
 
 function Dashboard() {
   const { products } = useSelector((state) => {

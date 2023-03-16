@@ -1,47 +1,33 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import {
+  deleteCategory,
+  fetchCategories,
+} from "../store/actions/actionCreator";
 
 function TableCategories({ items }) {
   const [categories, setCategories] = useState([...items]);
-  const [deleted, setDeleted] = useState(false);
 
-  async function deleteCategory(id) {
+  const dispatch = useDispatch();
+
+  const handleDelete = async (id) => {
     try {
-      let response = await fetch("http://localhost:3001/categories/" + id, {
-        method: "delete",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (response.ok) {
-        toast.success("successfully deleted category");
-        setDeleted(true);
-      }
-    } catch (err) {
-      toast.error("failed to delete " + err.message, {
+      let message = await dispatch(deleteCategory(id));
+
+      toast.success(message, {
         autoClose: 500,
+        pauseOnFocusLoss: false,
+        pauseOnHover: false,
+      });
+    } catch (err) {
+      toast.error(err.message, {
+        autoClose: 500,
+        pauseOnFocusLoss: false,
+        pauseOnHover: false,
       });
     }
-  }
-
-  useEffect(() => {
-    fetch("http://localhost:3001/categories")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("failed to fetch categories");
-        }
-        return response.json();
-      })
-      .then((items) => {
-        setCategories([...items]);
-        setDeleted(false);
-      })
-      .catch((err) => {
-        toast.error("failed to delete " + err.message, {
-          autoClose: 500,
-        });
-      });
-  }, [deleted]);
+  };
 
   return (
     <table className="table-auto grid hover:table-fixed focus:table-fixed relative ">
@@ -70,7 +56,7 @@ function TableCategories({ items }) {
                 <div className="container">
                   <button
                     className="mx-2 cursor-pointer hover:text-red-500 hover:underline underline-offset-4 hover:font-bold ease-linear duration-150"
-                    onClick={() => deleteCategory(el.id)}
+                    onClick={() => handleDelete(el.id)}
                   >
                     Delete
                   </button>
