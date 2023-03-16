@@ -1,4 +1,4 @@
-import { createBrowserRouter, Outlet, redirect } from "react-router-dom";
+import { createBrowserRouter, redirect } from "react-router-dom";
 import Login from "../views/Login.jsx";
 import Register from "../views/Register.jsx";
 import Categories from "../views/Categories.jsx";
@@ -36,6 +36,10 @@ const router = createBrowserRouter([
         path: "edit-product/:id",
         element: <EditProduct />,
       },
+      {
+        path: "register",
+        element: <Register />,
+      },
     ],
   },
   {
@@ -51,10 +55,6 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <Login />,
-      },
-      {
-        path: "register",
-        element: <Register />,
       },
     ],
   },

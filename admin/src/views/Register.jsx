@@ -112,9 +112,6 @@ function Register() {
           >
             Register
           </button>
-          <Link to="/auth" className="font-semibold">
-            <p>already have an account? login here!</p>
-          </Link>
         </form>
       </div>
     </div>
