@@ -12,11 +12,13 @@ module.exports = class Controller {
         throw new Errors(400, "email/password must be filled");
       }
 
-      let user = User.findOne({ where: { email } });
+      let user = await User.findOne({ where: { email } });
 
       if (!user) {
         throw new Errors(401, "Invalid email/password");
       }
+
+      console.log(user);
 
       let valid = Hash.verify(password, user.password);
 
@@ -39,7 +41,7 @@ module.exports = class Controller {
       if (!email || !password) {
         throw new Errors(400, "email/password must be filled");
       }
-      let [user, created] = User.findOrCreate({
+      let [user, created] = await User.findOrCreate({
         where: { email },
         defaults: {
           email,
@@ -47,6 +49,7 @@ module.exports = class Controller {
           username,
           phoneNumber,
           address,
+          role: "Admin",
         },
       });
 
@@ -65,40 +68,6 @@ module.exports = class Controller {
   static async googleLogin(req, res, next) {
     try {
       //google login here
-    } catch (err) {
-      next(err);
-    }
-  }
-
-  static async home(req, res, next) {
-    try {
-      const products = await Product.findAll({
-        include: [
-          {
-            model: Category,
-            attributes: {
-              exclude: ["createdAt", "updatedAt"],
-            },
-          },
-          {
-            model: User,
-            as: "Author",
-            attributes: {
-              exclude: ["password", "createdAt", "updatedAt"],
-            },
-          },
-          {
-            model: Image,
-            attributes: {
-              exclude: ["createdAt", "updatedAt"],
-            },
-          },
-        ],
-        attributes: {
-          exclude: ["createdAt", "updatedAt"],
-        },
-      });
-      res.status(200).json(products);
     } catch (err) {
       next(err);
     }
