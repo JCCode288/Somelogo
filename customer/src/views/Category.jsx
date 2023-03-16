@@ -1,12 +1,8 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import CategoryButton from "../components/CategoryButton";
-import { useEffect } from "react";
-import { fetchCategories } from "../store/actions/actionCreator";
 import { Spinner } from "../components";
 
 export default function Category() {
-  const dispatch = useDispatch();
-
   const { categories, categoriesLoading } = useSelector(
     (state) => state.categories
   );
