@@ -1,14 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Layout, ProductSection } from "../components";
-import { Category, Landing, Login, Detail } from "../views";
+import { Categories, Landing, Login, Detail, CategoryDetail } from "../views";
 
 const router = createBrowserRouter([
   {
-    path: "/",
     element: <Layout />,
     children: [
       {
-        path: "",
+        path: "/",
         element: <Landing />,
         children: [
           {
@@ -23,10 +22,14 @@ const router = createBrowserRouter([
       },
       {
         path: "categories",
-        element: <Category />,
+        element: <Categories />,
       },
       {
-        path: "detail/:id",
+        path: "/category/:id",
+        element: <CategoryDetail />,
+      },
+      {
+        path: "/detail/:id",
         element: <Detail />,
       },
     ],

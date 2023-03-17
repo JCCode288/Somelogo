@@ -10,5 +10,7 @@ export const REGISTER_LOADING = "register/loading";
 
 export const CATEGORIES = "categories/fetchSuccess";
 export const CATEGORIES_LOADING = "categories/loading";
+export const CATEGORY = "category/fetchSuccess";
+export const CATEGORY_LOADING = "category/loading";
 
 export const BASE_URL = "http://localhost:3001";
