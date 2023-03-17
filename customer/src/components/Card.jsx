@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export default function Card({ product }) {
   return (
     <Link
-      to={`detail/${product?.id}`}
+      to={`/detail/${product?.id}`}
       className="hover:scale-105 hover:shadow-md duration-100 ease-out"
     >
       <div className="max-w-sm bg-[#fefefe] rounded-lg dark:bg-gray-800 dark:border-gray-700">

@@ -7,7 +7,7 @@ export default function Navbar() {
         <NavLink
           className={({ isActive }) => {
             if (isActive) {
-              return "text-lg underline underline-offset-2 font-bold mx-4";
+              return "text-lg underline underline-offset-2 font-bold mx-4 text-red-500";
             } else {
               return "text-lg mx-4 hover:underline duration-200 transition ease-linear";
             }
@@ -19,7 +19,7 @@ export default function Navbar() {
         <NavLink
           className={({ isActive }) => {
             if (isActive) {
-              return "text-lg underline underline-offset-2 font-bold mx-4";
+              return "text-lg underline underline-offset-2 font-bold mx-4 text-red-500";
             } else {
               return "text-lg mx-4 hover:underline duration-200 ease-linear";
             }
@@ -33,7 +33,7 @@ export default function Navbar() {
       <NavLink
         className={({ isActive }) => {
           if (isActive) {
-            return "text-lg underline underline-offset-2 font-bold mx-4";
+            return "text-lg underline underline-offset-2 font-bold mx-4 text-red-500";
           } else {
             return "text-lg mx-4 hover:underline duration-200 ease-linear";
           }
