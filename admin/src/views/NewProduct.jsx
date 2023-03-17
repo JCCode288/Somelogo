@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import Form from "../components/Form";
-import { postProduct } from "../store/actions/actionCreator";
+import { fetchCategories, postProduct } from "../store/actions/actionCreator";
 
 export default function NewProduct() {
   const [newProduct, setNewProduct] = useState({
@@ -14,13 +14,23 @@ export default function NewProduct() {
     categoryId: "",
     authorId: "",
     slug: "",
+    Images: [],
   });
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, []);
+
   function submitNewProduct(e) {
     e.preventDefault();
+
+    let images = Object.values(newProduct.Images);
+
+    newProduct.Images = images;
+
     dispatch(postProduct(newProduct))
       .then((message) => {
         toast.success(message, {

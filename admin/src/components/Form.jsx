@@ -1,18 +1,35 @@
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useLocation, useParams } from "react-router-dom";
 
 export default function Form({
-  newProduct,
   setProduct,
   submitMethods,
   pageLegend,
+  newProduct,
 }) {
   const categories = useSelector((state) => state.categories.categories);
+  const path = useLocation().pathname;
+  const editProduct = useSelector((state) => state.products.product);
+
+  useEffect(() => {
+    if (path.match(/(edit)/gi)) {
+      setProduct(editProduct);
+    } else {
+      setProduct({ Images: {}, categoryId: 0 });
+    }
+  }, [editProduct]);
 
   function inputHandler(e) {
     const { value, name } = e.target;
     const inputForm = { ...newProduct };
 
-    inputForm[name] = value;
+    if (name.match(/(image)/gi)) {
+      inputForm.Images[name] = value;
+    } else {
+      inputForm[name] = value;
+    }
+
     inputForm.slug = inputForm.name.replace(" ", "-");
 
     setProduct(inputForm);
@@ -56,6 +73,22 @@ export default function Form({
         name="mainImg"
         onChange={inputHandler}
         value={newProduct.mainImg}
+        placeholder="Input Product Main Image URL"
+      />
+      <input
+        className="p-2 border-2 rounded-sm focus:outline-red-500 focus:scale-110 duration-75"
+        type="text"
+        name="image1"
+        onChange={inputHandler}
+        value={newProduct.Images ? newProduct?.Images[0]?.imgUrl : ""}
+        placeholder="Input Product Image URL"
+      />
+      <input
+        className="p-2 border-2 rounded-sm focus:outline-red-500 focus:scale-110 duration-75"
+        type="text"
+        name="image2"
+        onChange={inputHandler}
+        value={newProduct.Images ? newProduct?.Images[1]?.imgUrl : ""}
         placeholder="Input Product Image URL"
       />
       <select

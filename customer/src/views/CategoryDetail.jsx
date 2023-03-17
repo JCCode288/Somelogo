@@ -17,8 +17,6 @@ export default function CategoryDetail() {
     (state) => state.categories
   );
 
-  console.log(category);
-
   return (
     <>
       <button

@@ -17,7 +17,7 @@ module.exports = async (req, res, next) => {
       },
     });
 
-    if (!user) {
+    if (!user || user.role !== "Admin") {
       throw new Errors(401, "Unauthenticated");
     }
 

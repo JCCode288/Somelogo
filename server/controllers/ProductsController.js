@@ -81,11 +81,18 @@ module.exports = class ProductController {
     const t = await sequelize.transaction();
     let transaction = t;
     try {
-      let { name, description, price, mainImg, categoryId, images } = req.body;
+      let { name, description, price, mainImg, categoryId, Images } = req.body;
       let authorId = req.user.id;
-      console.log(req.user);
+      console.log(req.body);
 
-      if (!name || !description || !price || !mainImg || !categoryId) {
+      if (
+        !name ||
+        !description ||
+        !price ||
+        !mainImg ||
+        !categoryId ||
+        !Images
+      ) {
         throw new Errors(400, "Required fields must be filled");
       }
 
@@ -106,6 +113,10 @@ module.exports = class ProductController {
         },
         transaction,
       });
+
+      Images = Images.map((el) => ({ productId: product.id, imgUrl: el }));
+
+      let images = await Image.bulkCreate(Images, { transaction });
 
       if (!created) {
         throw new Errors("400", "you already put this item");

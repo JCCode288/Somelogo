@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import Form from "../components/Form";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,15 +12,17 @@ import {
 
 export default function EditProduct() {
   let { id } = useParams();
-  let { products } = useSelector((state) => state);
-  const loading = products.productLoading;
-
-  const [product, setProduct] = useState({
-    ...products.product,
-  });
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  let { product, productLoading } = useSelector((state) => state.products);
+
+  const loading = productLoading;
+
+  const [editProduct, setEditProduct] = useState({
+    ...product,
+  });
 
   async function handleEditPage() {
     try {
@@ -42,7 +44,7 @@ export default function EditProduct() {
   async function submitEditProduct(e) {
     try {
       e.preventDefault();
-      let message = await dispatch(putProduct(id, product));
+      let message = await dispatch(putProduct(id, editProduct));
       toast.success(message, {
         autoClose: 700,
         pauseOnFocusLoss: false,
@@ -65,9 +67,9 @@ export default function EditProduct() {
         <Spinner />
       ) : (
         <Form
-          newProduct={product}
+          newProduct={editProduct}
           submitMethods={submitEditProduct}
-          setProduct={setProduct}
+          setProduct={setEditProduct}
           pageLegend="Edit Product"
         />
       )}
