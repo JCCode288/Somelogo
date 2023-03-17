@@ -61,7 +61,7 @@ export function fetchUsers() {
       dispatch(userLoading(false));
     } catch (err) {
       dispatch(userLoading(false));
-      throw err.text();
+      throw JSON.parse(err);
     }
   };
 }
@@ -70,17 +70,22 @@ export function postUser(payload) {
   return async (dispatch) => {
     try {
       dispatch(registerLoading(true));
-      await fetch(`${BASE_URL}/users`, {
+      const res = await fetch(`${BASE_URL}/users`, {
         method: "post",
         body: payload,
         headers: {
           "Content-Type": "application/json",
         },
       });
+
+      if (!res.ok) {
+        throw await res.text();
+      }
+
       dispatch(registerLoading(false));
     } catch (err) {
       dispatch(registerLoading(false));
-      throw err.text();
+      throw JSON.parse(err);
     }
   };
 }
@@ -99,7 +104,7 @@ export function fetchProducts() {
       dispatch(productsLoading(false));
     } catch (err) {
       dispatch(productsLoading(false));
-      throw err.text();
+      throw JSON.parse(err);
     }
   };
 }
@@ -118,7 +123,7 @@ export function fetchProduct(id) {
       dispatch(productLoading(false));
     } catch (err) {
       dispatch(productLoading(false));
-      throw err.text();
+      throw JSON.parse(err);
     }
   };
 }
@@ -136,7 +141,7 @@ export function fetchCategories() {
       dispatch(fetchCategoriesSuccess(data));
       dispatch(categoriesLoading(false));
     } catch (err) {
-      throw err.text();
+      throw JSON.parse(err);
     }
   };
 }

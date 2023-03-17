@@ -111,10 +111,10 @@ module.exports = class ProductController {
         throw new Errors("400", "you already put this item");
       }
 
-      t.commit();
+      await t.commit();
       res.status(201).json(product);
     } catch (err) {
-      t.rollback();
+      await t.rollback();
       next(err);
     }
   }
