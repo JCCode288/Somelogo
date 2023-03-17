@@ -1,20 +1,20 @@
 const Errors = require("../helpers/Errors");
 const Hash = require("../helpers/Hash");
 const Token = require("../helpers/Token");
-const { User, Product, Category, Image } = require("../models");
+const { User } = require("../models");
 
-module.exports = class Controller {
+module.exports = class CustomersController {
   static async login(req, res, next) {
     try {
-      const { email, password } = req.body;
+      let { email, password } = req.body;
 
       if (!email || !password) {
         throw new Errors(400, "email/password must be filled");
       }
 
-      let user = await User.findOne({ where: { email } });
+      let user = await User.findOne({ where: { email, role: "Customer" } });
 
-      if (!user && user.role !== "Admin") {
+      if (!user) {
         throw new Errors(401, "Invalid email/password");
       }
 
@@ -39,16 +39,17 @@ module.exports = class Controller {
       if (!email || !password) {
         throw new Errors(400, "email/password must be filled");
       }
-
       let [user, created] = await User.findOrCreate({
-        where: { email },
+        where: {
+          email,
+        },
         defaults: {
           email,
           password,
           username,
           phoneNumber,
           address,
-          role: "Admin",
+          role: "Customer",
         },
       });
 
@@ -59,14 +60,6 @@ module.exports = class Controller {
       let access_token = Token.create({ id: user.id, email: user.email });
 
       res.status(201).json({ access_token, username: user.username });
-    } catch (err) {
-      next(err);
-    }
-  }
-
-  static async googleLogin(req, res, next) {
-    try {
-      //google login here
     } catch (err) {
       next(err);
     }

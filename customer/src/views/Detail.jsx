@@ -4,6 +4,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { fetchProduct } from "../store/actions/actionCreator";
 import { Spinner } from "../components";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 
 export default function Detail() {
   let { id } = useParams();
@@ -31,11 +33,13 @@ export default function Detail() {
           </button>
           <div className="container flex flex-row">
             <div className="container p-4  md:max-w-[50vw]">
-              <img
-                src={product.mainImg}
-                alt={product.name}
-                className="rounded-md"
-              />
+              <Swiper spaceBetween={50} slidesPerView={1}>
+                product
+                <SwiperSlide>Slide 1</SwiperSlide>
+                <SwiperSlide>Slide 2</SwiperSlide>
+                <SwiperSlide>Slide 3</SwiperSlide>
+                <SwiperSlide>Slide 4</SwiperSlide>
+              </Swiper>
             </div>
             <div className="container flex flex-col justify-center p-6">
               <h4 className="font-semibold text-2xl text-center">

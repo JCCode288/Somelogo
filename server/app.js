@@ -5,15 +5,17 @@ const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 3001;
 const cors = require("cors");
+
 const router = require("./routers");
 const errorHandler = require("./middlewares/errorHandler");
+const customersRouter = require("./routers/customers");
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("./"));
 app.use("/adm", router);
-app.use("/", router);
+app.use("/", customersRouter);
 app.use(errorHandler);
 
 app.listen(PORT, () => {

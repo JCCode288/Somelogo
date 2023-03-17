@@ -8,6 +8,8 @@ import {
   USERS_LOADING,
   CATEGORIES_LOADING,
   PRODUCT_LOADING,
+  CATEGORY,
+  CATEGORY_LOADING,
 } from "./actionType";
 
 export const fetchProductsSuccess = (payload) => ({
@@ -36,6 +38,14 @@ export const fetchCategoriesSuccess = (payload) => ({
 });
 export const categoriesLoading = (payload) => ({
   type: CATEGORIES_LOADING,
+  payload,
+});
+export const fetchCategorySuccess = (payload) => ({
+  type: CATEGORY,
+  payload,
+});
+export const categoryLoading = (payload) => ({
+  type: CATEGORY_LOADING,
   payload,
 });
 export const fetchProductSuccess = (payload) => ({
@@ -94,7 +104,7 @@ export function fetchProducts() {
   return async (dispatch) => {
     try {
       dispatch(productsLoading(true));
-      let res = await fetch(`${BASE_URL}/products`);
+      let res = await fetch(`${BASE_URL}/`);
       if (!res.ok) {
         throw await res.text();
       }
@@ -113,7 +123,7 @@ export function fetchProduct(id) {
   return async (dispatch) => {
     try {
       dispatch(productLoading(true));
-      let res = await fetch(`${BASE_URL}/products/${id}`);
+      let res = await fetch(`${BASE_URL}/${id}`);
       if (!res.ok) {
         throw await res.text();
       }
@@ -141,6 +151,28 @@ export function fetchCategories() {
       dispatch(fetchCategoriesSuccess(data));
       dispatch(categoriesLoading(false));
     } catch (err) {
+      dispatch(categoriesLoading(false));
+      throw JSON.parse(err);
+    }
+  };
+}
+
+export function fetchCategory(id) {
+  return async (dispatch) => {
+    try {
+      dispatch(categoryLoading(true));
+      let res = await fetch(BASE_URL + "/categories/" + id);
+
+      if (!res.ok) {
+        throw await res.text();
+      }
+
+      let data = await res.json();
+
+      dispatch(fetchCategorySuccess(data));
+      dispatch(categoryLoading(false));
+    } catch (err) {
+      dispatch(categoryLoading(false));
       throw JSON.parse(err);
     }
   };
