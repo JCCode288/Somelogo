@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       Product.belongsTo(models.Category, { foreignKey: "id" });
       Product.hasMany(models.Image, {
         foreignKey: "productId",
+        onUpdate: "CASCADE",
         onDelete: "CASCADE",
       });
     }

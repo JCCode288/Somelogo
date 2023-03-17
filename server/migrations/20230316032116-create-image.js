@@ -12,6 +12,8 @@ module.exports = {
       productId: {
         allowNull: false,
         type: Sequelize.INTEGER,
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
       },
       imgUrl: {
         allowNull: false,
