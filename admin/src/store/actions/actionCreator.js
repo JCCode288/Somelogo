@@ -68,6 +68,7 @@ export function login(payload) {
       dispatch(loginLoading(false));
     } catch (err) {
       dispatch(loginLoading(false));
+      console.log(err);
       throw JSON.parse(err);
     }
   };
@@ -177,7 +178,7 @@ export function putProduct(id, payload) {
       });
 
       if (!res.ok) {
-        throw res.text();
+        throw await res.text();
       }
       let data = await res.json();
       return `product ${data.name} has been edited`;

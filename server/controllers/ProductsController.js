@@ -134,7 +134,7 @@ module.exports = class ProductController {
     const t = await sequelize.transaction();
     let transaction = t;
     try {
-      let { name, description, price, mainImg, categoryId, images } = req.body;
+      let { name, description, price, mainImg, categoryId, Images } = req.body;
       let productId = req.params.id;
 
       if (!name || !description || !price || !mainImg || !categoryId) {
@@ -160,10 +160,17 @@ module.exports = class ProductController {
           price,
           mainImg,
           categoryId,
-          images,
         },
         { transaction }
       );
+
+      // Images = Images.map((el) => ({ productId: edited.id, imgUrl: el }));
+
+      let images = await Image.bulkCreate(Images, {
+        transaction,
+        where: { productId: edited.id },
+        updateOnDuplicate: ["imgUrl"],
+      });
 
       await t.commit();
       res.status(200).json(edited);
