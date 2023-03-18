@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "./Navbar";
 import { fetchCategories, fetchProducts } from "../store/actions/actionCreator";
+import Footer from "./Footer";
 
 export default function Layout() {
   const dispatch = useDispatch();
@@ -12,9 +13,10 @@ export default function Layout() {
   }, []);
 
   return (
-    <div className="flex flex-col h-full w-screen justify-center">
+    <div className="flex flex-col h-full w-screen justify-center gap-8">
       <Navbar />
       <Outlet />
+      <Footer />
     </div>
   );
 }
