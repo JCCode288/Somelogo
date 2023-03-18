@@ -8,9 +8,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import "swiper/css/effect-fade";
+import "swiper/css/effect-cards";
 import currency from "../helpers/currency";
-import { EffectFade, Navigation, Pagination } from "swiper";
+import { EffectCards, Navigation, Pagination } from "swiper";
 
 export default function Detail() {
   let { id } = useParams();
@@ -41,7 +41,8 @@ export default function Detail() {
               <Swiper
                 spaceBetween={50}
                 slidesPerView={1}
-                modules={[Navigation, Pagination, EffectFade]}
+                effect="cards"
+                modules={[Navigation, Pagination, EffectCards]}
                 pagination={{ clickable: true }}
                 navigation={{ clickable: true }}
               >
@@ -68,8 +69,18 @@ export default function Detail() {
                 <p className="text-gray-800 flex w-1/2 my-2">
                   {product?.description}
                 </p>
+                <div className="container flex flex-col w-full mt-8 text-gray-800">
+                  <h4 className="text-lg">Author</h4>
+                  <strong className="text-xl">
+                    {product?.Author?.username}
+                  </strong>
+                </div>
+                <div className="container flex flex-col w-full mt-8 text-gray-800">
+                  <h4 className="text-lg">Category</h4>
+                  <strong className="text-xl">{product?.Category?.name}</strong>
+                </div>
                 <div className="container flex w-full mt-8 text-gray-800">
-                  <h4>Price: {currency(product?.price)}</h4>
+                  <h4 className="">Price: {currency(product?.price)}</h4>
                 </div>
               </div>
             </div>

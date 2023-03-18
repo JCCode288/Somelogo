@@ -75,8 +75,6 @@ export function postUser(payload) {
 
       let data = await res.json();
 
-      console.log(data);
-
       localStorage.access_token = data.access_token;
       localStorage.username = data.username;
 
@@ -106,8 +104,6 @@ export function login(payload) {
 
       localStorage.access_token = data.access_token;
       localStorage.username = data.username;
-
-      console.log(data);
 
       await dispatch(isLoggedIn(true));
       await dispatch(userLoading(false));
@@ -145,6 +141,8 @@ export function fetchProduct(id) {
         throw await res.text();
       }
       let data = await res.json();
+
+      console.log(data);
 
       dispatch(fetchProductSuccess(data));
       dispatch(productLoading(false));
