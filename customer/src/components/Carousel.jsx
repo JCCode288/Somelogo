@@ -21,7 +21,7 @@ export default function Carousel({ product }) {
       >
         {products.map((el) => {
           return (
-            <SwiperSlide>
+            <SwiperSlide key={el.id}>
               <Link to={`/detail/${el.id}`}>
                 <img src={el?.mainImg} alt={el?.name} />
               </Link>

@@ -1,18 +1,22 @@
-import { REGISTER_LOADING, USERS, USERS_LOADING } from "../actions/actionType";
+import {
+  LOGGED_IN,
+  REGISTER_LOADING,
+  USERS_LOADING,
+} from "../actions/actionType";
 import {} from "../actions/actionType";
 
 const initialState = {
-  users: [],
   usersLoading: false,
   registerLoading: false,
+  loggedIn: false,
 };
 
 export default function usersReducer(state = initialState, { type, payload }) {
   switch (type) {
-    case USERS:
+    case LOGGED_IN:
       return {
         ...state,
-        users: payload,
+        loggedIn: payload,
       };
     case USERS_LOADING:
       return {
