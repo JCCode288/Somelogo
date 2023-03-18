@@ -11,7 +11,7 @@ export default function CategoryDetail() {
 
   useEffect(() => {
     dispatch(fetchCategory(categoryId));
-  }, []);
+  }, [categoryId]);
 
   const { category, categoryLoading } = useSelector(
     (state) => state.categories
@@ -19,13 +19,6 @@ export default function CategoryDetail() {
 
   return (
     <>
-      <button
-        className="py-2 px-4 border-2 border-red-500 m-4 rounded-3xl hover:bg-red-500 hover:text-white hover:font-bold duration-100 hover:translate-x-[-1rem] active:translate-x-[-1rem] w-fit"
-        onClick={() => navigate(-1)}
-      >
-        Back
-      </button>
-
       {categoryLoading ? <Spinner /> : <CategorySection category={category} />}
     </>
   );
