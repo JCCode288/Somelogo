@@ -6,6 +6,11 @@ import { fetchProduct } from "../store/actions/actionCreator";
 import { Spinner } from "../components";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/effect-fade";
+import currency from "../helpers/currency";
+import { EffectFade, Navigation, Pagination } from "swiper";
 
 export default function Detail() {
   let { id } = useParams();
@@ -33,7 +38,16 @@ export default function Detail() {
           </button>
           <div className="container flex flex-row">
             <div className="container p-4  md:max-w-[50vw]">
-              <Swiper spaceBetween={50} slidesPerView={1}>
+              <Swiper
+                spaceBetween={50}
+                slidesPerView={1}
+                modules={[Navigation, Pagination, EffectFade]}
+                pagination={{ clickable: true }}
+                navigation={{ clickable: true }}
+              >
+                <SwiperSlide key={product?.id}>
+                  <img src={product?.mainImg} alt={product?.name} />
+                </SwiperSlide>
                 {product?.Images?.map((el) => {
                   return (
                     <SwiperSlide key={el.id}>
@@ -55,7 +69,7 @@ export default function Detail() {
                   {product?.description}
                 </p>
                 <div className="container flex w-full mt-8 text-gray-800">
-                  <h4>Price: {product?.price}</h4>
+                  <h4>Price: {currency(product?.price)}</h4>
                 </div>
               </div>
             </div>

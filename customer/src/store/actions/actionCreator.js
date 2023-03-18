@@ -1,7 +1,6 @@
 import {
   PRODUCT,
   PRODUCTS,
-  USERS,
   CATEGORIES,
   BASE_URL,
   PRODUCTS_LOADING,
@@ -10,6 +9,7 @@ import {
   PRODUCT_LOADING,
   CATEGORY,
   CATEGORY_LOADING,
+  LOGGED_IN,
 } from "./actionType";
 
 export const fetchProductsSuccess = (payload) => ({
@@ -20,12 +20,12 @@ export const productsLoading = (payload) => ({
   type: PRODUCTS_LOADING,
   payload,
 });
-export const fetchUsersSuccess = (payload) => ({
-  type: USERS,
-  payload,
-});
 export const userLoading = (payload) => ({
   type: USERS_LOADING,
+  payload,
+});
+export const isLoggedIn = (payload) => ({
+  type: LOGGED_IN,
   payload,
 });
 export const registerLoading = (payload) => ({
@@ -75,12 +75,43 @@ export function postUser(payload) {
 
       let data = await res.json();
 
+      console.log(data);
+
       localStorage.access_token = data.access_token;
       localStorage.username = data.username;
 
       dispatch(registerLoading(false));
     } catch (err) {
       dispatch(registerLoading(false));
+      throw JSON.parse(err);
+    }
+  };
+}
+
+export function login(payload) {
+  return async (dispatch) => {
+    try {
+      dispatch(userLoading(true));
+      let res = await fetch(`${BASE_URL}/login`, {
+        method: "post",
+        body: JSON.stringify(payload),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (!res.ok) {
+        throw await res.text();
+      }
+      let data = await res.json();
+
+      localStorage.access_token = data.access_token;
+      localStorage.username = data.username;
+
+      console.log(data);
+
+      await dispatch(isLoggedIn(true));
+      await dispatch(userLoading(false));
+    } catch (err) {
       throw JSON.parse(err);
     }
   };
