@@ -57,32 +57,13 @@ export const productLoading = (payload) => ({
   payload,
 });
 
-export function fetchUsers() {
-  return async (dispatch) => {
-    try {
-      dispatch(userLoading(true));
-      let res = await fetch(`${BASE_URL}/users`);
-      if (!res.ok) {
-        throw await res.text();
-      }
-      let data = await res.json();
-
-      dispatch(fetchUsersSuccess(data));
-      dispatch(userLoading(false));
-    } catch (err) {
-      dispatch(userLoading(false));
-      throw JSON.parse(err);
-    }
-  };
-}
-
 export function postUser(payload) {
   return async (dispatch) => {
     try {
       dispatch(registerLoading(true));
-      const res = await fetch(`${BASE_URL}/users`, {
+      const res = await fetch(`${BASE_URL}/register`, {
         method: "post",
-        body: payload,
+        body: JSON.stringify(payload),
         headers: {
           "Content-Type": "application/json",
         },
@@ -91,6 +72,11 @@ export function postUser(payload) {
       if (!res.ok) {
         throw await res.text();
       }
+
+      let data = await res.json();
+
+      localStorage.access_token = data.access_token;
+      localStorage.username = data.username;
 
       dispatch(registerLoading(false));
     } catch (err) {
