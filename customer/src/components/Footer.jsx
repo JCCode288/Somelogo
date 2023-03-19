@@ -199,8 +199,8 @@ export default function Footer() {
       <div className="bg-red-200 p-6 text-center dark:bg-red-700">
         <span>© 2023 Copyright:</span>
         <a
-          className="font-semibold text-neutral-600 dark:text-neutral-400"
-          href="https://tailwind-elements.com/"
+          className="font-semibold text-neutral-600 dark:text-neutral-400 cursor-pointer"
+          href="#"
         >
           Jambu And Somelogo
         </a>
