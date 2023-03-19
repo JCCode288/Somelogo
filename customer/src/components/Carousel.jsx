@@ -1,5 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectFade, Navigation, Pagination } from "swiper";
+import { Navigation, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -14,14 +14,13 @@ export default function Carousel({ product }) {
     <div className="container flex items-center z-10 shadow-sm w-full">
       <Swiper
         slidesPerView={2}
-        modules={[Navigation, Pagination, EffectFade]}
+        modules={[Navigation, Pagination]}
         pagination={{ clickable: true }}
         navigation={{ clickable: true }}
-        className=""
       >
         {products.map((el) => {
           return (
-            <SwiperSlide>
+            <SwiperSlide key={el.id}>
               <Link to={`/detail/${el.id}`}>
                 <img src={el?.mainImg} alt={el?.name} />
               </Link>

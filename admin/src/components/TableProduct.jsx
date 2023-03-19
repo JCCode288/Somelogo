@@ -67,10 +67,10 @@ function TableProducts({ items }) {
                 </div>
               </td>
               <td className="p-2 border-b-[1px] border-red-500 border-opacity-50 text-center">
-                {el.categoryId}
+                {el.Category?.name}
               </td>
               <td className="p-2 border-b-[1px] border-red-500 border-opacity-50 text-center">
-                {el.authorId}
+                {el.Author?.email}
               </td>
               <td className="p-2 border-b-[1px] border-red-500 border-opacity-50 text-center">
                 <button

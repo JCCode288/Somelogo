@@ -56,9 +56,7 @@ module.exports = class Controller {
         throw new Errors(400, "you are already registered");
       }
 
-      let access_token = Token.create({ id: user.id, email: user.email });
-
-      res.status(201).json({ access_token, username: user.username });
+      res.status(201).json({ message: `Registering ${user.email} Success!` });
     } catch (err) {
       next(err);
     }

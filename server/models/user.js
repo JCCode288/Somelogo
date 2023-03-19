@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       User.hasMany(models.Product, {
         foreignKey: "authorId",
+        onUpdate: "CASCADE",
         onDelete: "CASCADE",
       });
     }

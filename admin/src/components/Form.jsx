@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 export default function Form({
   setProduct,
@@ -14,7 +14,15 @@ export default function Form({
 
   useEffect(() => {
     if (path.match(/(edit)/gi)) {
-      setProduct(editProduct);
+      const Images = {};
+
+      editProduct.Images?.forEach((el, index) => {
+        Images[`image${++index}`] = el.imgUrl;
+      });
+
+      const newProduct = { ...editProduct, Images };
+
+      setProduct(newProduct);
     } else {
       setProduct({ Images: {}, categoryId: 0 });
     }
@@ -80,7 +88,7 @@ export default function Form({
         type="text"
         name="image1"
         onChange={inputHandler}
-        value={newProduct.Images ? newProduct?.Images[0]?.imgUrl : ""}
+        value={newProduct?.Images?.image1}
         placeholder="Input Product Image URL"
       />
       <input
@@ -88,7 +96,7 @@ export default function Form({
         type="text"
         name="image2"
         onChange={inputHandler}
-        value={newProduct.Images ? newProduct?.Images[1]?.imgUrl : ""}
+        value={newProduct?.Images?.image2}
         placeholder="Input Product Image URL"
       />
       <select

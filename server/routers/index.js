@@ -1,5 +1,4 @@
 const Controller = require("../controllers");
-const ProductController = require("../controllers/ProductsController");
 const authentication = require("../middlewares/authentication");
 const categoriesRouter = require("./categories");
 const productsRouter = require("./products");

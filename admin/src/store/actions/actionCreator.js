@@ -78,16 +78,23 @@ export function postUser(payload) {
     try {
       dispatch(registerLoading(true));
 
-      await fetch(`${BASE_URL}/users`, {
+      let res = await fetch(`${BASE_URL}/register`, {
         method: "post",
-        body: payload,
+        body: JSON.stringify(payload),
         headers: {
           "Content-Type": "application/json",
           access_token: localStorage.access_token,
         },
       });
 
+      if (!res.ok) {
+        throw await res.text();
+      }
+
+      let { message } = await res.json();
+
       dispatch(registerLoading(false));
+      return message;
     } catch (err) {
       dispatch(registerLoading(false));
       throw JSON.parse(err);
@@ -177,7 +184,7 @@ export function putProduct(id, payload) {
       });
 
       if (!res.ok) {
-        throw res.text();
+        throw await res.text();
       }
       let data = await res.json();
       return `product ${data.name} has been edited`;
@@ -207,7 +214,6 @@ export function deleteProduct(id) {
       await dispatch(fetchProducts());
       return data.message;
     } catch (err) {
-      console.log(err);
       throw JSON.parse(err);
     }
   };

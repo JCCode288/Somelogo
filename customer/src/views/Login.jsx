@@ -1,9 +1,16 @@
 import { Fragment, useRef, useState, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useNavigate, Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { login } from "../store/actions/actionCreator";
+import Swal from "sweetalert2";
 
 export default function Login() {
   const [open, setOpen] = useState(false);
+  const [input, setInput] = useState({
+    email: "",
+    password: "",
+  });
 
   useEffect(() => {
     setOpen(true);
@@ -13,7 +20,36 @@ export default function Login() {
     };
   }, []);
 
+  const inputHandler = (e) => {
+    const { name, value } = e.target;
+    const newInput = {
+      ...input,
+      [name]: value,
+    };
+
+    setInput(newInput);
+  };
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleLogin = async (e) => {
+    try {
+      e.preventDefault();
+
+      await dispatch(login(input));
+
+      Swal.fire("Logged In!", "", "success");
+      setOpen(false);
+      navigate(-1);
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        title: "Something is wrong",
+        html: err,
+      });
+    }
+  };
 
   const cancelButtonRef = useRef(null);
   return (
@@ -61,10 +97,14 @@ export default function Login() {
                         Login
                       </Dialog.Title>
                       <div className="mt-2">
-                        <form className="flex flex-col gap-4">
+                        <form
+                          onSubmit={handleLogin}
+                          className="flex flex-col gap-4"
+                        >
                           <div className="container flex flex-row gap-2 rounded ring-2 my-4 ring-black">
                             <label className="border-r-2 p-2">Email</label>
                             <input
+                              onChange={inputHandler}
                               className="outline-none w-full"
                               type="text"
                               name="email"
@@ -74,6 +114,7 @@ export default function Login() {
                           <div className="container flex flex-row gap-2 rounded ring-2 ring-black">
                             <label className="border-r-2 p-2">Password</label>
                             <input
+                              onChange={inputHandler}
                               className="outline-none w-full"
                               type="password"
                               name="password"
@@ -91,12 +132,8 @@ export default function Login() {
                               Cancel
                             </button>
                             <button
-                              type="button"
+                              type="submit"
                               className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                              onClick={() => {
-                                setOpen(false);
-                                navigate(-1);
-                              }}
                             >
                               Login
                             </button>
