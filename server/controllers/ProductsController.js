@@ -4,7 +4,7 @@ const { User, Product, Category, Image, sequelize } = require("../models");
 module.exports = class ProductController {
   static async allProducts(req, res, next) {
     try {
-      const products = await Product.findAll({
+      let products = await Product.findAll({
         include: [
           {
             model: Category,
@@ -30,6 +30,7 @@ module.exports = class ProductController {
           exclude: ["createdAt", "updatedAt"],
         },
       });
+
       res.status(200).json(products);
     } catch (err) {
       next(err);
@@ -40,7 +41,7 @@ module.exports = class ProductController {
     try {
       let productId = req.params.id;
 
-      const product = await Product.findByPk(productId, {
+      let product = await Product.findByPk(productId, {
         include: [
           {
             model: Category,
@@ -144,7 +145,7 @@ module.exports = class ProductController {
       let product = await Product.findByPk(productId, { transaction });
 
       if (!product) {
-        throw new Errors(404, "Category is not found");
+        throw new Errors(404, "Product is not found");
       }
 
       let category = await Category.findByPk(categoryId, { transaction });
@@ -164,8 +165,6 @@ module.exports = class ProductController {
         { transaction }
       );
 
-      // Images = Images.map((el) => ({ productId: edited.id, imgUrl: el }));
-
       let images = await Image.bulkCreate(Images, {
         transaction,
         where: { productId: edited.id },
@@ -184,17 +183,25 @@ module.exports = class ProductController {
     try {
       const productId = req.params.id;
       const result = await sequelize.transaction(async (t) => {
-        const product = await Product.findByPk(productId);
+        const product = await Product.findByPk(productId, { transaction: t });
 
         if (!product) {
           throw new Errors(404, "Product not found");
         }
 
-        await product.destroy();
+        const images = await Image.findAll({
+          where: { productId },
+          transaction: t,
+        });
+
+        if (images.length) {
+          await Image.destroy({ where: { productId }, transaction: t });
+        }
+
+        await product.destroy({ transaction: t });
 
         return { message: `${product.name} has been deleted` };
       });
-
       res.status(200).json(result);
     } catch (err) {
       next(err);

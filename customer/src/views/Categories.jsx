@@ -11,7 +11,6 @@ export default function Categories() {
   const { categories, categoriesLoading } = useSelector(
     (state) => state.categories
   );
-  console.log(categories);
   useEffect(() => {
     dispatch(fetchCategories());
   }, []);

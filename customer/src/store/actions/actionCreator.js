@@ -142,8 +142,6 @@ export function fetchProduct(id) {
       }
       let data = await res.json();
 
-      console.log(data);
-
       dispatch(fetchProductSuccess(data));
       dispatch(productLoading(false));
     } catch (err) {

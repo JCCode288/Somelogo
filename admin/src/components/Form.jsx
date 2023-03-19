@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 export default function Form({
   setProduct,
@@ -15,7 +15,8 @@ export default function Form({
   useEffect(() => {
     if (path.match(/(edit)/gi)) {
       const Images = {};
-      editProduct.Images.forEach((el, index) => {
+
+      editProduct.Images?.forEach((el, index) => {
         Images[`image${++index}`] = el.imgUrl;
       });
 

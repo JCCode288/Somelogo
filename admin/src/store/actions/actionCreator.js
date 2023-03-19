@@ -68,7 +68,6 @@ export function login(payload) {
       dispatch(loginLoading(false));
     } catch (err) {
       dispatch(loginLoading(false));
-      console.log(err);
       throw JSON.parse(err);
     }
   };
@@ -79,16 +78,23 @@ export function postUser(payload) {
     try {
       dispatch(registerLoading(true));
 
-      await fetch(`${BASE_URL}/users`, {
+      let res = await fetch(`${BASE_URL}/register`, {
         method: "post",
-        body: payload,
+        body: JSON.stringify(payload),
         headers: {
           "Content-Type": "application/json",
           access_token: localStorage.access_token,
         },
       });
 
+      if (!res.ok) {
+        throw await res.text();
+      }
+
+      let { message } = await res.json();
+
       dispatch(registerLoading(false));
+      return message;
     } catch (err) {
       dispatch(registerLoading(false));
       throw JSON.parse(err);
@@ -208,7 +214,6 @@ export function deleteProduct(id) {
       await dispatch(fetchProducts());
       return data.message;
     } catch (err) {
-      console.log(err);
       throw JSON.parse(err);
     }
   };

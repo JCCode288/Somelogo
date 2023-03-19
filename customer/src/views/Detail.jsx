@@ -11,6 +11,7 @@ import "swiper/css/pagination";
 import "swiper/css/effect-cards";
 import currency from "../helpers/currency";
 import { EffectCards, Navigation, Pagination } from "swiper";
+import { Swal } from "sweetalert2/dist/sweetalert2";
 
 export default function Detail() {
   let { id } = useParams();
@@ -19,7 +20,9 @@ export default function Detail() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(fetchProduct(id)).catch((err) => console.log(err));
+    dispatch(fetchProduct(id)).catch((err) =>
+      Swal.fire("Error", err.message, "error")
+    );
   }, []);
 
   const { product, productLoading } = useSelector((state) => state.products);

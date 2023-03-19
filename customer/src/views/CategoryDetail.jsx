@@ -1,12 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { CategorySection, Spinner } from "../components";
 import { fetchCategory } from "../store/actions/actionCreator";
 
 export default function CategoryDetail() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const categoryId = useParams().id;
 
   useEffect(() => {

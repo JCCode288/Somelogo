@@ -20,8 +20,11 @@ function NavBar() {
 
   return (
     <nav className="flex border-2 border-b-black py-1 justify-between shadow-sm shadow-black">
-      <ul className="flex">
+      <ul className="flex item">
         <ToastContainer />
+        <li>
+          <img src="./logo.svg" alt="logo" className="h-12" />
+        </li>
         <Link to="/">
           <li className="cursor-pointer mx-4 my-2 px-2 py-1 hover:bg-red-600 ease-in-out duration-150 text-lg hover:font-bold hover:text-white rounded hover:underline underline-offset-2 border-red-500 border-2">
             Dashboard

@@ -29,21 +29,25 @@ function Register() {
     setRegisterForm(inputForm);
   }
 
-  async function registerSubmit() {
+  async function registerSubmit(e) {
+    const loading = toast.loading("Registering...");
     try {
-      const loading = toast.loading("Registering...");
-      await dispatch(postUser(registerForm));
+      e.preventDefault();
+      let message = await dispatch(postUser(registerForm));
 
-      localStorage.access_token = "true";
       toast.update(loading, {
-        render: "Registered!",
+        render: message,
         type: "success",
+        autoClose: 500,
         isLoading: false,
       });
       navigate("/");
     } catch (err) {
-      toast.error(err.message, {
-        autoClose: 700,
+      toast.update(loading, {
+        render: err.message,
+        autoClose: 500,
+        type: "error",
+        isLoading: false,
       });
     }
   }
